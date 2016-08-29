@@ -5,6 +5,7 @@ import org.scalatra.sbt.PluginKeys._
 import com.earldouglas.xwp.JettyPlugin
 import com.mojolly.scalate.ScalatePlugin._
 import ScalateKeys._
+import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
 
 object WordServiceBuild extends Build {
   val Organization = "org.dgrald"
@@ -45,5 +46,5 @@ object WordServiceBuild extends Build {
         )
       }
     )
-  ).enablePlugins(JettyPlugin)
+  ).enablePlugins(JavaAppPackaging)
 }
