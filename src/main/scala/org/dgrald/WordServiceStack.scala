@@ -10,7 +10,7 @@ import collection.mutable
 
 trait WordServiceStack extends ScalatraServlet with ScalateSupport with FileUploadSupport {
 
-  configureMultipartHandling(MultipartConfig(maxFileSize = Some(3*1024*1024)))
+  configureMultipartHandling(MultipartConfig(maxFileSize = Some(10*1024*1024)))
 
   notFound {
     // remove content type in case it was set through an action
