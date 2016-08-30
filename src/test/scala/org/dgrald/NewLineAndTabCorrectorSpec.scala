@@ -4,7 +4,8 @@ import org.specs2.mutable.Specification
 import org.specs2.specification.core.Fragment
 
 /**
-  * Created by dylangrald on 8/28/16.
+  * Created by dylan
+  * grald on 8/28/16.
   */
 class NewLineAndTabCorrectorSpec extends Specification {
 
