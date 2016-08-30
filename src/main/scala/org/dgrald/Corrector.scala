@@ -9,7 +9,7 @@ trait Corrector {
 
 object WordServiceCorrector {
   def correct(input: String): String = {
-    List(NewLineCorrector, MultipleSpaceCorrector, ComparisonSymbolCorrector).foldRight(List(input))((corrector, resultList) => {
+    List(NewLineAndTabCorrector, MultipleSpaceCorrector, ComparisonSymbolCorrector).foldRight(List(input))((corrector, resultList) => {
       corrector.correct(resultList.head) +: resultList
     }).head
   }

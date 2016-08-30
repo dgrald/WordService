@@ -3,10 +3,10 @@ package org.dgrald
 /**
   * Created by dylangrald on 8/28/16.
   */
-object NewLineCorrector extends Corrector {
+object NewLineAndTabCorrector extends Corrector {
 
   override def correct(input: String): String = {
-    val multipleNewLineRegex = "[\\n\\r]".r
+    val multipleNewLineRegex = "[\\n\\r\\t]".r
     multipleNewLineRegex.replaceAllIn(input, "")
   }
 
