@@ -1,0 +1,1 @@
+web: target/universal/stage/bin/word-service -Dhttp.port=$PORT -Dother.prop=someValue
