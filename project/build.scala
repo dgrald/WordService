@@ -1,4 +1,5 @@
 import com.earldouglas.xwp.JettyPlugin
+import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
 import sbt._
 import Keys._
 import org.scalatra.sbt._
@@ -46,5 +47,5 @@ object WordServiceBuild extends Build {
         )
       }
     )
-  ).enablePlugins(JettyPlugin)
+  ).enablePlugins(JavaAppPackaging, JettyPlugin)
 }
