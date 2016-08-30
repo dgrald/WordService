@@ -13,6 +13,6 @@ class CorrectorSpec extends Specification {
 
     val output = WordServiceCorrector.correct(input)
 
-    output must_== "This is one.\nThis is two."
+    output must_== "This is one\nThis is two."
   }
 }
