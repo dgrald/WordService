@@ -10,7 +10,7 @@ class VersusCorrectorSpec extends Specification {
 
   "Should correct" >> {
     Fragment.foreach(List("versus", "vs", "vs.")) { versus =>
-      versus + " to vs." ! {
+      s"$versus to vs." ! {
         val input = s"Something with $versus in it."
         VersusCorrector.correct(input) must_== "Something with vs. in it."
       }
