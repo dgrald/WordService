@@ -6,7 +6,7 @@ package org.dgrald
 object NewLineCorrector extends Corrector {
 
   override def correct(input: String): String = {
-    val multipleNewLineRegex = "\\n{2,}".r
+    val multipleNewLineRegex = "[\\n\\r]".r
     multipleNewLineRegex.replaceAllIn(input, "")
   }
 

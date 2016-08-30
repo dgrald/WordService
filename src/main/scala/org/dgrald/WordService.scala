@@ -13,7 +13,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <input type="submit" />
       </form>
       <form method="post" enctype="multipart/form-data">
-        <textarea name="filecontents" rows="4" cols="50"></textarea>
+        <textarea name="filecontents" rows="25" cols="150"></textarea>
 
         <input type="submit" />
       </form>
