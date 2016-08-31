@@ -15,7 +15,7 @@ object HyphenCorrector extends Corrector {
         if(exceptions.contains(someMatch.toString().toLowerCase)) {
           someMatch.toString
         } else {
-          val prefix = if(someMatch.toString.head.isUpper) nextPrefix.head.toUpper +: nextPrefix.tail else nextPrefix
+          val prefix = if(StringUtils.isCapitalized(someMatch.toString)) StringUtils.capitalize(nextPrefix) else nextPrefix
           s"$prefix-${someMatch.toString.split(prefixRegex).last}"
         }
       })
