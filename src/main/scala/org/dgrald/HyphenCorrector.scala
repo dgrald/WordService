@@ -10,7 +10,7 @@ object HyphenCorrector extends Corrector {
 
     prefixesToHyphenate.foldRight(List(input))((nextPrefix, toReturn) => {
       val prefixRegex = s"[${nextPrefix.head}${nextPrefix.head.toUpper}]${nextPrefix.tail}"
-      val nextRegex = s"$prefixRegex[a-zA-Z]+".r
+      val nextRegex = s"\\b$prefixRegex[a-zA-Z]+".r
       val nextOutput = nextRegex.replaceAllIn(toReturn.head, (someMatch) => {
         if(exceptions.contains(someMatch.toString().toLowerCase)) {
           someMatch.toString

@@ -38,6 +38,15 @@ class HyphenCorrectorSpec extends Specification {
     }
   }
 
+  "Should not change" >> {
+    Fragment.foreach(prefixes) { prefix =>
+      s"Something${prefix}word"  ! {
+        val input = s"Something${prefix}word"
+        HyphenCorrector.correct(input) must_== input
+      }
+    }
+  }
+
   val exceptions = List("previous", "presentation", "presenter", "presented", "present", "preclinical", "press", "pregnant", "prevent", "prevented", "prevents")
 
   "Should not change exceptions to the rule for" >> {
