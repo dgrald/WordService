@@ -6,11 +6,18 @@ package org.dgrald
 object HyphenCorrector extends Corrector {
   override def correct(input: String): String = {
     val prefixesToHyphenate = List("pre", "post", "intra", "anti")
+    val exceptions = List("previous", "presentation", "presenter", "presented", "present", "preclinical", "press", "pregnant", "prevent", "prevented", "prevents")
 
     prefixesToHyphenate.foldRight(List(input))((nextPrefix, toReturn) => {
-      val nextRegex = s"$nextPrefix[a-zA-Z]+".r
+      val prefixRegex = s"[${nextPrefix.head}${nextPrefix.head.toUpper}]${nextPrefix.tail}"
+      val nextRegex = s"$prefixRegex[a-zA-Z]+".r
       val nextOutput = nextRegex.replaceAllIn(toReturn.head, (someMatch) => {
-          s"$nextPrefix-${someMatch.toString.split(nextPrefix).last}"
+        if(exceptions.contains(someMatch.toString().toLowerCase)) {
+          someMatch.toString
+        } else {
+          val prefix = if(someMatch.toString.head.isUpper) nextPrefix.head.toUpper +: nextPrefix.tail else nextPrefix
+          s"$prefix-${someMatch.toString.split(prefixRegex).last}"
+        }
       })
       nextOutput +: toReturn
     }).head
