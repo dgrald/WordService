@@ -13,7 +13,7 @@ class NewLineCorrectorSpec extends Specification {
 
     val output = NewLineCorrector.correct(input)
 
-    output must_== "Something sentence one\n\nSomething sentence two"
+    output must_== "Something sentence one\nSomething sentence two"
   }
 
   "Should not add a new line when there is a period followed by a lower case letter" in {

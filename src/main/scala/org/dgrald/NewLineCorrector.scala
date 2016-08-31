@@ -24,7 +24,7 @@ object NewLineCorrector extends Corrector {
         if(first.endsWith(".") && second.matches("[A-Z].*")) {
           val listOfAbbreviationsToIgnore = List("vs.", "U.S.")
           if(!listOfAbbreviationsToIgnore.contains(first)) {
-            return fixRecursively(s"$output ${stripLastCharacter(first)}\n\n${stripLastCharacterIfEndsInPeriod(second)}", rest)
+            return fixRecursively(s"$output ${stripLastCharacter(first)}\n${stripLastCharacterIfEndsInPeriod(second)}", rest)
           }
         }
         fixRecursively(s"$output $first", List(second) ++ rest)
