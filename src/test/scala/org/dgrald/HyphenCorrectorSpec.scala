@@ -8,7 +8,7 @@ import org.specs2.specification.core.Fragment
   */
 class HyphenCorrectorSpec extends Specification {
 
-  val prefixes = List("pre", "post", "intra", "anti")
+  val prefixes = List("post", "intra", "anti")
 
   "Should correct" >> {
     Fragment.foreach(prefixes) { prefix =>
@@ -42,17 +42,6 @@ class HyphenCorrectorSpec extends Specification {
     Fragment.foreach(prefixes) { prefix =>
       s"Something${prefix}word"  ! {
         val input = s"Something${prefix}word"
-        HyphenCorrector.correct(input) must_== input
-      }
-    }
-  }
-
-  val exceptions = List("previous", "presentation", "presenter", "presented", "present", "preclinical", "press", "pregnant", "prevent", "prevented", "prevents")
-
-  "Should not change exceptions to the rule for" >> {
-    Fragment.foreach(exceptions ++ (for{e <- exceptions} yield StringUtils.capitalize(e))) { exception =>
-      s"$exception"  ! {
-        val input = s"Something with $exception."
         HyphenCorrector.correct(input) must_== input
       }
     }
