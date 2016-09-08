@@ -35,7 +35,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
     <form method="get" enctype="multipart/form-data">
       <input type="submit" value="Back"/>
-      <div style="white-space: pre;">{corrected}</div>
+      <div style="white-space: pre-wrap;">{corrected}</div>
     </form>
   }
 
