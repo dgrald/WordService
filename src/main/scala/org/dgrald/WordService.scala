@@ -34,8 +34,12 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     val corrected = WordServiceCorrector.correct(fileContents)
 
     <form method="get" enctype="multipart/form-data">
-      <input type="submit" value="Back"/>
-      <div style="white-space: pre-wrap;">{corrected}</div>
+      <div>
+        <input type="submit" value="Back"/>
+      </div>
+      <div>
+        <textarea rows="25" cols="150" wrap="soft" autofocus="true" onfocus="this.select()">{corrected}</textarea>
+      </div>
     </form>
   }
 
