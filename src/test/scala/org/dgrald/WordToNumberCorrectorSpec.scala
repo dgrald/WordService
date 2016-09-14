@@ -8,7 +8,7 @@ import org.specs2.specification.core.Fragment
   */
 class WordToNumberCorrectorSpec extends Specification {
 
-  val wordsToNumbersMap = Map(
+  val numbersToWordsMap = Map(
     0 -> "zero",
     1 -> "one",
     2 -> "two",
@@ -18,12 +18,13 @@ class WordToNumberCorrectorSpec extends Specification {
     6 -> "six",
     7 -> "seven",
     8 -> "eight",
-    9 -> "nine"
+    9 -> "nine",
+    10 -> "ten"
   )
 
   "Should change" >> {
-    Fragment.foreach(wordsToNumbersMap.keys.toList) { number =>
-      val word = wordsToNumbersMap(number)
+    Fragment.foreach(numbersToWordsMap.keys.toList) { number =>
+      val word = numbersToWordsMap(number)
       s"$word to $number" ! {
         val input = s"Something with $word and ${StringUtils.capitalize(word)} in it."
         WordToNumberCorrector.correct(input) must_== s"Something with $number and $number in it."
