@@ -21,7 +21,7 @@ object WordToNumberCorrector extends Corrector {
 
     wordsToNumbersMap.foldRight(List(input))((tuple, outputs) => tuple match {
       case (word, number) => {
-        val regex = s"($word|${StringUtils.capitalize(word)})".r
+        val regex = s"\\b($word|${StringUtils.capitalize(word)})\\b".r
         val updated = regex.replaceAllIn(outputs.head, regexMatch => {
           wordsToNumbersMap(regexMatch.toString().toLowerCase).toString
         })

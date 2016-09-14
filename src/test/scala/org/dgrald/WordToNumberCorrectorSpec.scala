@@ -40,4 +40,10 @@ class WordToNumberCorrectorSpec extends Specification {
     output must_== "3 and 4."
   }
 
+  "Should not should 'None'" in {
+    val input = "None."
+
+    WordToNumberCorrector.correct(input) must_== input
+  }
+
 }
