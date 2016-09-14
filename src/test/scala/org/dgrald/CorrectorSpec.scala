@@ -8,10 +8,10 @@ import org.specs2.mutable.Specification
 class CorrectorSpec extends Specification {
 
   "Should run correctors in the right order" in {
-    val input = "This is one. This is two."
+    val input = "This is something. This is another thing."
 
     val output = WordServiceCorrector.correct(input)
 
-    output must_== "This is one\nThis is two"
+    output must_== "This is something\nThis is another thing"
   }
 }
