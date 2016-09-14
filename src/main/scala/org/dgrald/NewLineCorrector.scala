@@ -22,7 +22,7 @@ object NewLineCorrector extends Corrector {
       case List(oneItem) => s"$output ${stripLastCharacterIfEndsInPeriod(oneItem)}"
       case first +: second +: rest => {
         if(first.endsWith(".") && second.matches("[A-Z].*")) {
-          val listOfAbbreviationsToIgnore = List("vs.", "U.S.")
+          val listOfAbbreviationsToIgnore = List("vs.", "U.S.", "St.")
           if(!listOfAbbreviationsToIgnore.contains(first)) {
             return fixRecursively(s"$output ${stripLastCharacter(first)}\n${stripLastCharacterIfEndsInPeriod(second)}", rest)
           }
