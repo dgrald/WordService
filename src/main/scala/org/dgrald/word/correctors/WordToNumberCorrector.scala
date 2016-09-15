@@ -2,6 +2,8 @@ package org.dgrald.word.correctors
 
 import org.dgrald.StringUtils
 
+import scala.util.matching.Regex.Match
+
 /**
   * Created by dylangrald on 9/14/16.
   */
@@ -21,11 +23,15 @@ object WordToNumberCorrector extends Corrector {
       "ten" -> 10
     )
 
+    def isPrecededByHyphen(regexMatch: Match): Boolean = {
+      regexMatch.start > 2 && regexMatch.source.toString().charAt(regexMatch.start - 1) == '-'
+    }
+
     wordsToNumbersMap.foldRight(List(input))((tuple, outputs) => tuple match {
       case (word, number) => {
         val regex = s"\\b($word|${StringUtils.capitalize(word)})\\b".r
         val updated = regex.replaceAllIn(outputs.head, regexMatch => {
-          if(regexMatch.start > 2 && regexMatch.source.toString().charAt(regexMatch.start - 1) == '-') {
+          if(isPrecededByHyphen(regexMatch)) {
             regexMatch.toString
           } else {
             wordsToNumbersMap(regexMatch.toString().toLowerCase).toString
