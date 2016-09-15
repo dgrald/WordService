@@ -24,7 +24,7 @@ class NewLineCorrectorSpec extends Specification {
     output must_== "Something one vs. something two"
   }
 
-  val abbreviationsToSkip = List("vs.", "U.S.", "St.")
+  val abbreviationsToSkip = List("vs.", "U.S.", "St.", "Dr.")
 
   "Should not add a new line" >> {
     Fragment.foreach(abbreviationsToSkip) { abbreviation =>
