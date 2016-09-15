@@ -1,4 +1,4 @@
-package org.dgrald
+package org.dgrald.word.correctors
 
 /**
   * Created by dylangrald on 8/28/16.

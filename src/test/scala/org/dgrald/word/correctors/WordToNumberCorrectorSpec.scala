@@ -1,5 +1,6 @@
-package org.dgrald
+package org.dgrald.word.correctors
 
+import org.dgrald.StringUtils
 import org.specs2.mutable.Specification
 import org.specs2.specification.core.Fragment
 

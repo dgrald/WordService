@@ -1,5 +1,6 @@
 package org.dgrald
 
+import org.dgrald.word.correctors.{WordServiceCorrector, PdfTextParser}
 import org.scalatra._
 import org.scalatra.servlet.FileUploadSupport
 

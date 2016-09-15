@@ -1,4 +1,4 @@
-package org.dgrald
+package org.dgrald.word.correctors
 
 import org.specs2.mutable.Specification
 

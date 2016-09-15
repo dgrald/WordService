@@ -1,6 +1,4 @@
-package org.dgrald
-
-import java.io.File
+package org.dgrald.word.correctors
 
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper

@@ -1,4 +1,6 @@
-package org.dgrald
+package org.dgrald.word.correctors
+
+import org.dgrald.word.correctors.Corrector
 
 /**
   * Created by dylangrald on 8/30/16.

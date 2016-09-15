@@ -1,4 +1,4 @@
-package org.dgrald
+package org.dgrald.word.correctors
 
 import java.util.Random
 

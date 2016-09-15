@@ -1,4 +1,6 @@
-package org.dgrald
+package org.dgrald.word.correctors
+
+import org.dgrald.StringUtils
 
 import scala.util.matching.Regex.Match
 
