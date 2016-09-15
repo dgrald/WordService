@@ -42,4 +42,12 @@ class WordToOrdinalCorrectorSpec extends Specification {
 
     WordToOrdinalCorrector.correct(input) must_== "Something with 1st, 2nd, and 3rd in it."
   }
+
+  "Should not correct ordinal followed by number" in {
+    val input = "First 2.22 mm"
+
+    val output = WordToOrdinalCorrector.correct(input)
+
+    output must_== input
+  }
 }

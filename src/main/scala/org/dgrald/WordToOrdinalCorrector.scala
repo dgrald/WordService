@@ -1,5 +1,7 @@
 package org.dgrald
 
+import scala.util.matching.Regex.Match
+
 /**
   * Created by dylangrald on 9/14/16.
   */
@@ -18,10 +20,21 @@ object WordToOrdinalCorrector extends Corrector {
       "tenth" -> "10th"
     )
 
+    def isFollowedBySpaceAndThenNumber(regexMatch: Match): Boolean = {
+      regexMatch.end < input.length + 1 && input.charAt(regexMatch.end).isSpaceChar && input.charAt(regexMatch.end + 1).isDigit
+    }
+
     wordToOrdinalMap.foldRight(List(input))((ordinalPair, outputs) => ordinalPair match {
       case (key: String, value: String) => {
-        val regex = s"\\b($key|${StringUtils.capitalize(key)})\\b".r
-        regex.replaceAllIn(outputs.head, wordToOrdinalMap(key)) +: outputs
+        val ordinalWordRegex = s"\\b($key|${StringUtils.capitalize(key)})\\b"
+        val regex = s"$ordinalWordRegex".r
+        regex.replaceAllIn(outputs.head, regexMatch => {
+            if(isFollowedBySpaceAndThenNumber(regexMatch)) {
+              regexMatch.toString()
+            } else {
+              wordToOrdinalMap(regexMatch.toString().toLowerCase)
+            }
+        }) +: outputs
       }
     }).head
   }
