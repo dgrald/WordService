@@ -44,11 +44,14 @@ class WordToOrdinalCorrectorSpec extends Specification {
     WordToOrdinalCorrector.correct(input) must_== "Something with 1st, 2nd, and 3rd in it."
   }
 
-  "Should not correct ordinal followed by number" in {
-    val input = "First 2.22 mm"
+  "Should not correct ordinal followed by number" >> {
+    Fragment.foreach(List("First 2.22 mm", "Something is first 2.22 mm.")){ phrase =>
+      s"in '$phrase'" ! {
+        val output = WordToOrdinalCorrector.correct(phrase)
 
-    val output = WordToOrdinalCorrector.correct(input)
+        output must_== phrase
+      }
+    }
 
-    output must_== input
   }
 }

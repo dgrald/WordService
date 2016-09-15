@@ -23,7 +23,7 @@ object WordToOrdinalCorrector extends Corrector {
     )
 
     def isFollowedBySpaceAndThenNumber(regexMatch: Match): Boolean = {
-      regexMatch.end < input.length + 1 && input.charAt(regexMatch.end).isSpaceChar && input.charAt(regexMatch.end + 1).isDigit
+      regexMatch.end < (input.length + 2) && input.charAt(regexMatch.end).isSpaceChar && input.charAt(regexMatch.end + 1).isDigit
     }
 
     wordToOrdinalMap.foldRight(List(input))((ordinalPair, outputs) => ordinalPair match {

@@ -8,15 +8,17 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
   get("/") {
     <form-group>
-      <form method="post" enctype="multipart/form-data">
-        <input type="file" name="thefile" />
-
-        <input type="submit" />
-      </form>
+      <h2>Text</h2>
       <form method="post" enctype="multipart/form-data">
         <input type="checkbox" name="linebreaks" checked="true"/>Create new lines<br/>
         <textarea name="filecontents" rows="25" cols="150"></textarea>
-        <button>Submit</button>
+        <input type="submit" />
+      </form>
+      <h2>File</h2>
+      <form method="post" enctype="multipart/form-data">
+        <input type="file" name="thefile" />
+        <input type="checkbox" name="linebreaks" checked="true"/>Create new lines
+        <input type="submit" />
       </form>
     </form-group>
   }
