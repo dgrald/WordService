@@ -6,7 +6,7 @@ import org.dgrald.word.correctors.Corrector
   * Created by dylangrald on 8/31/16.
   */
 object MonthAbbreviationCorrector extends Corrector {
-  override def correct(input: String): String = {
+  override def correct(input: String, otherInstructions: List[Any] = List()): String = {
     val mapOfMonthAbbreviations = Map("January" -> "Jan.",
       "February" -> "Feb.",
       "March" -> "March",

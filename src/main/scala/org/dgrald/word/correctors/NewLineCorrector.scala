@@ -6,7 +6,7 @@ import org.dgrald.word.correctors.Corrector
   * Created by dylangrald on 8/30/16.
   */
 object NewLineCorrector extends Corrector {
-  override def correct(input: String): String = {
+  override def correct(input: String, otherInstructions: List[Any] = List()): String = {
 
     def stripLastCharacterIfEndsInPeriod(item: String): String = {
       if(item.endsWith(".")) {

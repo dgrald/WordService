@@ -8,7 +8,7 @@ import scala.util.matching.Regex.Match
   * Created by dylangrald on 9/14/16.
   */
 object WordToOrdinalCorrector extends Corrector {
-  override def correct(input: String): String = {
+  override def correct(input: String, otherInstructions: List[Any] = List()): String = {
     val wordToOrdinalMap = Map(
       "first" -> "1st",
       "second" -> "2nd",

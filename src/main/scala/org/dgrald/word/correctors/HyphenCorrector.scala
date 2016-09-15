@@ -6,7 +6,7 @@ import org.dgrald.StringUtils
   * Created by dylangrald on 8/30/16.
   */
 object HyphenCorrector extends Corrector {
-  override def correct(input: String): String = {
+  override def correct(input: String, otherInstructions: List[Any] = List()): String = {
     val prefixesToHyphenate = List("post", "intra", "anti")
 
     prefixesToHyphenate.foldRight(List(input))((nextPrefix, toReturn) => {

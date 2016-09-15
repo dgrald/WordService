@@ -1,4 +1,4 @@
-package org.dgrald.word.correctors
+package org.dgrald
 
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
