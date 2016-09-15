@@ -8,21 +8,22 @@ trait Corrector {
 }
 
 object WordServiceCorrector {
-  def correct(input: String, newLines: Boolean, otherInstructions: List[Any]): String = {
-    val correctors: List[Corrector] = getCorrectors(newLines)
+  def correct(input: String, createNewLines: Boolean, removeNewLines: Boolean, otherInstructions: List[Any]): String = {
+    val correctors: List[Corrector] = getCorrectors(createNewLines, removeNewLines)
 
     correctors.foldRight(List(input))((corrector, resultList) => {
       corrector.correct(resultList.head, otherInstructions) +: resultList
     }).head
   }
 
-  def getCorrectors(newLines: Boolean): List[Corrector] = {
-    val beforeNewLines = List(PreWordCorrector, FollowUpCorrector, HyphenCorrector, VersusCorrector, ComparisonSymbolCorrector, CopyErrorCorrector, MultipleSpaceCorrector, RemoveNewLineAndTabCorrector)
-    val afterNewLines = List(WordToOrdinalCorrector, WordToNumberCorrector, PlusAndMinusCorrector, PercentageSpaceCorrector, MonthAbbreviationCorrector)
-    if (newLines) {
-      afterNewLines ++ List(NewLineCorrector) ++ beforeNewLines
+  def getCorrectors(createNewLines: Boolean, removeNewLines: Boolean): List[Corrector] = {
+    val afterRemovingNewLines = List(PreWordCorrector, FollowUpCorrector, HyphenCorrector, VersusCorrector, ComparisonSymbolCorrector, CopyErrorCorrector, MultipleSpaceCorrector)
+    val beforeAddingNewLines = if(removeNewLines) afterRemovingNewLines ++ List(RemoveNewLineAndTabCorrector) else afterRemovingNewLines
+    val afterAddingNewLines = List(WordToOrdinalCorrector, WordToNumberCorrector, PlusAndMinusCorrector, PercentageSpaceCorrector, MonthAbbreviationCorrector)
+    if (createNewLines) {
+      afterAddingNewLines ++ List(NewLineCorrector) ++ beforeAddingNewLines
     } else {
-      afterNewLines ++ beforeNewLines
+      afterAddingNewLines ++ beforeAddingNewLines
     }
   }
 }

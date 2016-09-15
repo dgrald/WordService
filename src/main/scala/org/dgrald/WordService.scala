@@ -7,10 +7,13 @@ import org.scalatra.servlet.FileUploadSupport
 class WordService extends WordServiceStack with FileUploadSupport with FlashMapSupport {
 
   get("/") {
+    val newLinesMessage = "Create new lines at periods"
+    val removeNewLinesMessage = "Remove new lines"
     <form-group>
       <h2>Text</h2>
       <form method="post" enctype="multipart/form-data">
-        <input type="checkbox" name="linebreaks" checked="true"/>Create new lines<br/>
+        <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
+        <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
         <textarea name="filecontents" rows="25" cols="150"></textarea>
         <input type="submit" />
         <table>
@@ -35,7 +38,8 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
       <h2>File</h2>
       <form method="post" enctype="multipart/form-data">
         <input type="file" name="thefile" />
-        <input type="checkbox" name="linebreaks" checked="true"/>Create new lines
+        <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
+        <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
         <table>
           <tr>
             <th>Replace</th>
@@ -73,6 +77,9 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     val newLinesParam = params.getOrElse("linebreaks", "false")
     val createNewLines = newLinesParam == "on"
 
+    val removeNewLinesParam = params.getOrElse("removenewlines", "false")
+    val removeNewLines = removeNewLinesParam == "on"
+
     def extractReplacementInstructions: List[(String, String)] = {
       def extractReplacement(num: Int): (String, String) = {
         (params.getOrElse(s"replace$num", ""), params.getOrElse(s"replacement$num", ""))
@@ -87,7 +94,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
     val otherInstructions = extractReplacementInstructions
 
-    val corrected = WordServiceCorrector.correct(fileContents, createNewLines, otherInstructions)
+    val corrected = WordServiceCorrector.correct(fileContents, createNewLines, removeNewLines, otherInstructions)
 
     <form method="get" enctype="multipart/form-data">
       <div>

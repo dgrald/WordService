@@ -10,7 +10,7 @@ class CorrectorSpec extends Specification {
   "Should run correctors in the right order" in {
     val input = "This is something. This is another thing."
 
-    val output = WordServiceCorrector.correct(input, newLines = true)
+    val output = WordServiceCorrector.correct(input, createNewLines = true)
 
     output must_== "This is something\nThis is another thing"
   }
