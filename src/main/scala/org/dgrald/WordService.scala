@@ -14,9 +14,9 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <input type="submit" />
       </form>
       <form method="post" enctype="multipart/form-data">
+        <input type="checkbox" name="linebreaks" checked="true"/>Create new lines<br/>
         <textarea name="filecontents" rows="25" cols="150"></textarea>
-
-        <input type="submit" />
+        <button>Submit</button>
       </form>
     </form-group>
   }
@@ -32,7 +32,10 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         }
     }
 
-    val corrected = WordServiceCorrector.correct(fileContents)
+    val newLinesParam = params.getOrElse("linebreaks", "false")
+    val createNewLines = newLinesParam == "on"
+
+    val corrected = WordServiceCorrector.correct(fileContents, createNewLines)
 
     <form method="get" enctype="multipart/form-data">
       <div>
