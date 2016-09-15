@@ -47,4 +47,17 @@ class WordToNumberCorrectorSpec extends Specification {
     WordToNumberCorrector.correct(input) must_== input
   }
 
+  "Should not change" >> {
+    Fragment.foreach(numbersToWordsMap.keys.toList){number =>
+      val word = numbersToWordsMap(number)
+      s"ninety-$word" ! {
+        val input = s"Something with ninety-$word in it."
+
+        val output = WordToNumberCorrector.correct(input)
+
+        output must_== input
+      }
+    }
+  }
+
 }

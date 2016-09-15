@@ -25,7 +25,11 @@ object WordToNumberCorrector extends Corrector {
       case (word, number) => {
         val regex = s"\\b($word|${StringUtils.capitalize(word)})\\b".r
         val updated = regex.replaceAllIn(outputs.head, regexMatch => {
-          wordsToNumbersMap(regexMatch.toString().toLowerCase).toString
+          if(regexMatch.start > 2 && regexMatch.source.toString().charAt(regexMatch.start - 1) == '-') {
+            regexMatch.toString
+          } else {
+            wordsToNumbersMap(regexMatch.toString().toLowerCase).toString
+          }
         })
         updated +: outputs
       }
