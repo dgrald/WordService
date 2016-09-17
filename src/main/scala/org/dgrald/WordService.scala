@@ -9,13 +9,20 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
   get("/") {
     val newLinesMessage = "Create new lines at periods"
     val removeNewLinesMessage = "Remove new lines"
-    <form-group>
+    val replaceAllButFirstMessage = "Replace all but first"
+    <html>
+      <head>
+        <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
+        <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        </head>
+        <body>
       <h2>Text</h2>
       <form method="post" enctype="multipart/form-data">
         <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
         <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
         <textarea name="filecontents" rows="25" cols="150"></textarea>
-        <input type="submit" />
+        <input type="submit" class="btn btn-primary blue"/>
         <table>
           <tr>
             <th>Replace</th>
@@ -24,43 +31,61 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
           <tr>
             <td><input type="text" name="replace1"></input></td>
             <td><input type="text" name="replacement1"></input></td>
+            <td><input type="checkbox" name="replaceallbutfirst1"/>{replaceAllButFirstMessage}</td>
           </tr>
           <tr>
             <td><input type="text" name="replace2"></input></td>
             <td><input type="text" name="replacement2"></input></td>
+            <td><input type="checkbox" name="replaceallbutfirst2"/>{replaceAllButFirstMessage}</td>
           </tr>
           <tr>
             <td><input type="text" name="replace3"></input></td>
             <td><input type="text" name="replacement3"></input></td>
+            <td><input type="checkbox" name="replaceallbutfirst3"/>{replaceAllButFirstMessage}</td>
           </tr>
         </table>
       </form>
-      <h2>File</h2>
-      <form method="post" enctype="multipart/form-data">
-        <input type="file" name="thefile" />
-        <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
-        <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
-        <table>
-          <tr>
-            <th>Replace</th>
-            <th>Replace with</th>
-          </tr>
-          <tr>
-            <td><input type="text" name="replace1"></input></td>
-            <td><input type="text" name="replacement1"></input></td>
-          </tr>
-          <tr>
-            <td><input type="text" name="replace2"></input></td>
-            <td><input type="text" name="replacement2"></input></td>
-          </tr>
-          <tr>
-            <td><input type="text" name="replace3"></input></td>
-            <td><input type="text" name="replacement3"></input></td>
-          </tr>
-        </table>
-        <input type="submit" />
-      </form>
-    </form-group>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapse1">File</a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">      <form method="post" enctype="multipart/form-data">
+              <input type="file" name="thefile" />
+              <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
+              <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
+              <table>
+                <tr>
+                  <th>Replace</th>
+                  <th>Replace with</th>
+                </tr>
+                <tr>
+                  <td><input type="text" name="replace1"></input></td>
+                  <td><input type="text" name="replacement1"></input></td>
+                  <td><input type="checkbox" name="replaceallbutfirst1"/>{replaceAllButFirstMessage}</td>
+                </tr>
+                <tr>
+                  <td><input type="text" name="replace2"></input></td>
+                  <td><input type="text" name="replacement2"></input></td>
+                  <td><input type="checkbox" name="replaceallbutfirst2"/>{replaceAllButFirstMessage}</td>
+                </tr>
+                <tr>
+                  <td><input type="text" name="replace3"></input></td>
+                  <td><input type="text" name="replacement3"></input></td>
+                  <td><input type="checkbox" name="replaceallbutfirst3"/>{replaceAllButFirstMessage}</td>
+                </tr>
+              </table>
+              <input type="submit" class="btn btn-primary blue"/>
+            </form>
+              </div>
+          </div>
+        </div>
+      </div>
+          </body>
+        </html>
   }
 
   post("/") {
@@ -80,16 +105,16 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     val removeNewLinesParam = params.getOrElse("removenewlines", "false")
     val removeNewLines = removeNewLinesParam == "on"
 
-    def extractReplacementInstructions: List[(String, String)] = {
-      def extractReplacement(num: Int): (String, String) = {
-        (params.getOrElse(s"replace$num", ""), params.getOrElse(s"replacement$num", ""))
+    def extractReplacementInstructions: List[(String, String, Boolean)] = {
+      def extractReplacement(num: Int): (String, String, Boolean) = {
+        (params.getOrElse(s"replace$num", ""), params.getOrElse(s"replacement$num", ""), params.getOrElse(s"replaceallbutfirst$num", "") == "on")
       }
 
       val instructions = (for {
-        num <- Range(1,3)
+        num <- Range(1,4)
       } yield extractReplacement(num)).toList
 
-      instructions.filter(pair => pair match {case (first: String, second: String) => first != "" && second != ""})
+      instructions.filter(pair => pair match {case (first: String, second: String, _: Boolean) => first != "" && second != ""})
     }
 
     val otherInstructions = extractReplacementInstructions
