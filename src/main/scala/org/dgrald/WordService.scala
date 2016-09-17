@@ -8,7 +8,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
   get("/") {
     val newLinesMessage = "Create new lines at periods"
-    val removeNewLinesMessage = "Remove new lines"
+    val removeNewLinesMessage = "Remove new line breaks in source"
     val replaceAllButFirstMessage = "Replace all but first"
     <html>
       <head>
@@ -19,14 +19,14 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <body>
       <h2>Text</h2>
       <form method="post" enctype="multipart/form-data">
-        <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
         <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
+        <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
         <textarea name="filecontents" rows="25" cols="150"></textarea>
         <input type="submit" class="btn btn-primary blue"/>
         <table>
           <tr>
-            <th>Replace</th>
-            <th>Replace with</th>
+            <th>Replace this term:</th>
+            <th>With this:</th>
           </tr>
           <tr>
             <td><input type="text" name="replace1"></input></td>
@@ -59,8 +59,8 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
               <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
               <table>
                 <tr>
-                  <th>Replace</th>
-                  <th>Replace with</th>
+                  <th>Replace this term:</th>
+                  <th>With this:</th>
                 </tr>
                 <tr>
                   <td><input type="text" name="replace1"></input></td>
