@@ -9,7 +9,8 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
   get("/") {
     val newLinesMessage = "Create new lines at periods"
     val removeNewLinesMessage = "Remove new line breaks in source"
-    val replaceAllButFirstMessage = "Replace all but first"
+    val replaceAllButFirstMessage = "Replace all but first instance"
+
     <html>
       <head>
         <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
@@ -21,8 +22,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
       <form method="post" enctype="multipart/form-data">
         <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
         <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
-        <textarea name="filecontents" rows="25" cols="150"></textarea>
-        <input type="submit" class="btn btn-primary blue"/>
+        <textarea class="form-control" name="filecontents" rows="25" cols="90"></textarea>
         <table>
           <tr>
             <th>Replace this term:</th>
@@ -44,16 +44,19 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
             <td><input type="checkbox" name="replaceallbutfirst3"/>{replaceAllButFirstMessage}</td>
           </tr>
         </table>
+        <br/>
+        <input type="submit" class="btn btn-primary blue"/>
       </form>
       <div class="panel-group">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse1">File</a>
+              <a data-toggle="collapse" href="#collapse1">File Option</a>
             </h4>
           </div>
           <div id="collapse1" class="panel-collapse collapse">
-            <div class="panel-body">      <form method="post" enctype="multipart/form-data">
+            <div class="panel-body">
+              <form method="post" enctype="multipart/form-data">
               <input type="file" name="thefile" />
               <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
               <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
