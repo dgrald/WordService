@@ -10,6 +10,9 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     val removeNewLinesMessage = "Remove new line breaks in source"
     val newLinesMessage = "Put each sentence on its own line"
     val replaceAllButFirstMessage = "Replace all but first instance"
+    val asterisksMessage = "Add asterisk before each line"
+
+    val substitutionMessage = "Custom Terms Substitution"
 
     <html>
       <head>
@@ -23,11 +26,12 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <textarea class="form-control" name="filecontents" rows="25"></textarea>
         <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
         <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
+        <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
         <div class="panel-group">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse1">Replacement Options</a>
+                <a data-toggle="collapse" href="#collapse1">{substitutionMessage}</a>
               </h4>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
@@ -63,16 +67,17 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse1">File Option</a>
+              <a data-toggle="collapse" href="#collapse2">File Option</a>
             </h4>
           </div>
-          <div id="collapse1" class="panel-collapse collapse">
+          <div id="collapse2" class="panel-collapse collapse">
             <div class="panel-body">
               <form method="post" enctype="multipart/form-data">
               <input type="file" name="thefile" />
               <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
               <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
-              <table>
+                <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
+                <table>
                 <tr>
                   <th>Replace this term:</th>
                   <th>With this:</th>
@@ -120,6 +125,9 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     val removeNewLinesParam = params.getOrElse("removenewlines", "false")
     val removeNewLines = removeNewLinesParam == "on"
 
+    val asterisks = params.getOrElse("asterisks", "false")
+    val addAsterisks = asterisks == "on"
+
     def extractReplacementInstructions: List[(String, String, Boolean)] = {
       def extractReplacement(num: Int): (String, String, Boolean) = {
         (params.getOrElse(s"replace$num", ""), params.getOrElse(s"replacement$num", ""), params.getOrElse(s"replaceallbutfirst$num", "") == "on")
@@ -134,7 +142,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
     val otherInstructions = extractReplacementInstructions
 
-    val corrected = WordServiceCorrector.correct(fileContents, createNewLines, removeNewLines, otherInstructions)
+    val corrected = WordServiceCorrector.correct(fileContents, createNewLines, removeNewLines, addAsterisks, otherInstructions)
 
     <form method="get" enctype="multipart/form-data">
       <div>
