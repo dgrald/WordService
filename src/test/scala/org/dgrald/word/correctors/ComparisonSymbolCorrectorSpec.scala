@@ -11,7 +11,7 @@ class ComparisonSymbolCorrectorSpec extends Specification {
   val lessThanOrEqualToUnicode = "\u2264"
   val greaterThanOrEqualToUnicode = "\u2265"
 
-  val comparisonSymbols = List(">=", greaterThanOrEqualToUnicode, "<=", lessThanOrEqualToUnicode, ">", "<")
+  val comparisonSymbols = List(">=", greaterThanOrEqualToUnicode, "<=", lessThanOrEqualToUnicode, ">", "<", "=")
 
   "Should replace comparison symbol followed by a space with a space" >> {
     Fragment.foreach(comparisonSymbols) { symbol =>

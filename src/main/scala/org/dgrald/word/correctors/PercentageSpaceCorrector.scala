@@ -1,7 +1,5 @@
 package org.dgrald.word.correctors
 
-import org.dgrald.word.correctors.Corrector
-
 /**
   * Created by dylangrald on 9/8/16.
   */
