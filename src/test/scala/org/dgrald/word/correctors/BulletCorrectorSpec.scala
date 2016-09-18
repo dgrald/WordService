@@ -12,8 +12,8 @@ class BulletCorrectorSpec extends Specification {
 
   "Should correct" >> {
     Fragment.foreach(List(
-      (s"Something line one: $bulletUnicode  \t  something else", "Something line one: \nsomething else"),
-      (s"Something line one: ${bulletUnicode}something else", "Something line one: \nsomething else"))) {
+      (s"Something line one: $bulletUnicode  \t  something else", "Something line one:\nsomething else"),
+      (s"Something line one: ${bulletUnicode}something else", "Something line one:\nsomething else"))) {
       case (input: String, expected: String) => s"'$input' to '$expected'" ! {
         val output = BulletCorrector.correct(input)
 

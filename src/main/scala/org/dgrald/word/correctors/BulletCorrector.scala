@@ -6,7 +6,7 @@ package org.dgrald.word.correctors
 object BulletCorrector extends Corrector {
   override def correct(input: String, otherInstructions: List[Any]): String = {
     val bulletUnicode = "\u2022"
-    val regex = s"$bulletUnicode[\\s]*".r
+    val regex = s"[\\s]*$bulletUnicode[\\s]*".r
     regex.replaceAllIn(input, "\n")
   }
 }
