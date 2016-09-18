@@ -20,31 +20,43 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <body>
       <h2>Input text here:</h2>
       <form method="post" enctype="multipart/form-data">
+        <textarea class="form-control" name="filecontents" rows="25"></textarea>
         <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
         <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
-        <textarea class="form-control" name="filecontents" rows="25" cols="90"></textarea>
-        <table>
-          <tr>
-            <th>Replace this term:</th>
-            <th>With this:</th>
-          </tr>
-          <tr>
-            <td><input type="text" name="replace1"></input></td>
-            <td><input type="text" name="replacement1"></input></td>
-            <td><input type="checkbox" name="replaceallbutfirst1"/>{replaceAllButFirstMessage}</td>
-          </tr>
-          <tr>
-            <td><input type="text" name="replace2"></input></td>
-            <td><input type="text" name="replacement2"></input></td>
-            <td><input type="checkbox" name="replaceallbutfirst2"/>{replaceAllButFirstMessage}</td>
-          </tr>
-          <tr>
-            <td><input type="text" name="replace3"></input></td>
-            <td><input type="text" name="replacement3"></input></td>
-            <td><input type="checkbox" name="replaceallbutfirst3"/>{replaceAllButFirstMessage}</td>
-          </tr>
-        </table>
-        <br/>
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">Replacement Options</a>
+              </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+              <div class="panel-body">
+                <table>
+                  <tr>
+                    <th>Replace this term:</th>
+                    <th>With this:</th>
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="replace1"></input></td>
+                    <td><input type="text" name="replacement1"></input></td>
+                    <td><input type="checkbox" name="replaceallbutfirst1"/>{replaceAllButFirstMessage}</td>
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="replace2"></input></td>
+                    <td><input type="text" name="replacement2"></input></td>
+                    <td><input type="checkbox" name="replaceallbutfirst2"/>{replaceAllButFirstMessage}</td>
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="replace3"></input></td>
+                    <td><input type="text" name="replacement3"></input></td>
+                    <td><input type="checkbox" name="replaceallbutfirst3"/>{replaceAllButFirstMessage}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
         <input type="submit" class="btn btn-primary blue"/>
       </form>
       <div class="panel-group">
