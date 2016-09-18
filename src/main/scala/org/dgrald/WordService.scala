@@ -8,7 +8,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
   get("/") {
     val removeNewLinesMessage = "Remove new line breaks in source"
-    val newLinesMessage = "Creante new line for each for each sentence"
+    val newLinesMessage = "Put each sentence on its own line"
     val replaceAllButFirstMessage = "Replace all but first instance"
 
     <html>
