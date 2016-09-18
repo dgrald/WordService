@@ -7,8 +7,8 @@ import org.scalatra.servlet.FileUploadSupport
 class WordService extends WordServiceStack with FileUploadSupport with FlashMapSupport {
 
   get("/") {
-    val newLinesMessage = "Create new lines at periods"
     val removeNewLinesMessage = "Remove new line breaks in source"
+    val newLinesMessage = "Creante new line for each for each sentence"
     val replaceAllButFirstMessage = "Replace all but first instance"
 
     <html>
