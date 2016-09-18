@@ -20,7 +20,9 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         </head>
-        <body>
+      <title>Text Correction Result</title>
+
+      <body>
       <h2>Input text here:</h2>
       <form method="post" enctype="multipart/form-data">
         <textarea class="form-control" name="filecontents" rows="25"></textarea>
@@ -144,14 +146,24 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
     val corrected = WordServiceCorrector.correct(fileContents, createNewLines, removeNewLines, addAsterisks, otherInstructions)
 
+    <html>
+      <head>
+        <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
+        <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+      </head>
+      <title>Text Correction Result</title>
+      <body>
     <form method="get" enctype="multipart/form-data">
       <div>
-        <input type="submit" value="Back"/>
+        <input type="submit" value="Back" class="btn btn-primary blue"/>
       </div>
       <div>
-        <textarea rows="25" cols="150" wrap="soft" autofocus="true" onfocus="this.select()">{corrected}</textarea>
+        <textarea rows="25" wrap="soft" autofocus="true" onfocus="this.select()" class="form-control">{corrected}</textarea>
       </div>
     </form>
+        </body>
+      </html>
   }
 
 }
