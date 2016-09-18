@@ -27,7 +27,11 @@ object WordServiceCorrector {
         afterAddingNewLines ++ List(NewLineCorrector) ++ beforeAddingNewLines
       }
     } else {
-      afterAddingNewLines ++ beforeAddingNewLines
+      if(addAsterisks) {
+        afterAddingNewLines ++ List(AsteriskCorrector) ++ beforeAddingNewLines
+      } else {
+        afterAddingNewLines ++ beforeAddingNewLines
+      }
     }
   }
 }

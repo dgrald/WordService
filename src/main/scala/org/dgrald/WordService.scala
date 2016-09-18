@@ -19,8 +19,8 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
         <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
+        <title>Text Correction Result</title>
         </head>
-      <title>Text Correction Result</title>
 
       <body>
       <h2>Input text here:</h2>
@@ -151,8 +151,8 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
         <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
+        <title>Text Correction Result</title>
       </head>
-      <title>Text Correction Result</title>
       <body>
     <form method="get" enctype="multipart/form-data">
       <div>
