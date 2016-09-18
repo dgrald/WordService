@@ -18,7 +18,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <script type="text/javascript" src="js/bootstrap.js"></script>
         </head>
         <body>
-      <h2>Text</h2>
+      <h2>Input text here:</h2>
       <form method="post" enctype="multipart/form-data">
         <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
         <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
