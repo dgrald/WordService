@@ -14,4 +14,12 @@ class PeriodRemoverCorrectorSpec extends Specification {
 
     output must_== "Something one\nSomething two\nSomething three"
   }
+
+  "Should not remove the last character of a string if it's not" in {
+    val input = "Something not ending a period"
+
+    val output = PeriodRemoverCorrector.correct(input)
+
+    output must_== input
+  }
 }

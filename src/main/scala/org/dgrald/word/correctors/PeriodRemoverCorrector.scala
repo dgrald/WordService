@@ -7,7 +7,7 @@ object PeriodRemoverCorrector extends Corrector {
   override def correct(input: String, otherInstructions: List[Any]): String = {
     val regex = ".[\\s]*\\n".r
     val intermediateInput = regex.replaceAllIn(input, "\n")
-    val endOfStringRegex = ".[\\s]*\\z".r
-    endOfStringRegex.replaceAllIn(intermediateInput, "")
+    val periodAtEndOfStringRegex = "\\.[\\s]*\\z".r
+    periodAtEndOfStringRegex.replaceAllIn(intermediateInput, "")
   }
 }

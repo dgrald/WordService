@@ -1,6 +1,7 @@
 package org.dgrald.word.correctors
 
 import org.specs2.mutable.Specification
+import org.specs2.specification.core.Fragment
 
 /**
   * Created by dylan
@@ -16,11 +17,16 @@ class NewLineAndTabRemoverSpec extends Specification {
     output must_== "Something with multiple new lines  and  tabs  in a string."
   }
 
-  "Should not add a space if a new line is proceeded by a hyphen" in {
-    val input = "Something that has a hyphenated-\nword in it,\nman."
+  "Should correct" >> {
+    val expected = "Something that has a hyphenated-word in it, man."
 
-    val output = NewLineAndTabRemoverCorrector.correct(input)
+    Fragment.foreach(List(
+      "Something that has a hyphenated\n \t-\t \nword in it,\nman.")) { testCase =>
+      s"'$testCase' to '$expected'" ! {
+        val output = NewLineAndTabRemoverCorrector.correct(testCase)
 
-    output must_== "Something that has a hyphenated-word in it, man."
+        output must_== expected
+      }
+    }
   }
 }

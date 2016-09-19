@@ -7,21 +7,13 @@ object NewLineAndTabRemoverCorrector extends Corrector {
 
   override def correct(input: String, otherInstructions: List[Any] = List()): String = {
     val tabsRegex = "\\t".r
-    val tabsReplaced = tabsRegex.replaceAllIn(input, " ")
+    val input2 = tabsRegex.replaceAllIn(input, " ")
+
+    val hyphensSurroundedByWhiteSpace = "[\\s]*-[\\s]*".r
+    val input3 = hyphensSurroundedByWhiteSpace.replaceAllIn(input2, "-")
 
     val newLineRegex = "[\\n\\r]".r
-    newLineRegex.replaceAllIn(tabsReplaced, regexMatch => {
-      val start = regexMatch.start
-      if(start > 0) {
-        if(tabsReplaced.charAt(start - 1) == '-') {
-          ""
-        } else {
-          " "
-        }
-      } else {
-        " "
-      }
-    })
+    newLineRegex.replaceAllIn(input3, " ")
   }
 
 }
