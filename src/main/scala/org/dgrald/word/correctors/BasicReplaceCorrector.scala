@@ -1,0 +1,70 @@
+package org.dgrald.word.correctors
+
+import org.dgrald.StringUtils
+
+/**
+  * Created by dylangrald on 9/19/16.
+  */
+object BasicReplaceCorrector extends Corrector {
+  override def correct(input: String, otherInstructions: List[Any]): String = {
+    val toReplaceMap = Map("transthoracic echocardiogram" -> "TTE",
+      "transthoracic echocardiography" -> "TTE",
+      "left ventricular end systolic volume" -> "LVESV",
+      "left ventricular end diastolic volume" -> "LVEDV",
+      "approximately" -> "appx.",
+      "left ventricular end systolic diameter" -> "LVESD",
+      "trans-septal" -> "transseptal",
+      "left ventricular assist device" -> "LVAD",
+      "trans-apical" -> "transapical",
+      "surgical aortic valve replacement" -> "SAVR",
+      "multivessel" -> "multi-vessel",
+      "perioperative" -> "peri-operative",
+      "pts" -> "patients",
+      "right bundle branch block" -> "RBBB",
+      "left ventricular end diastolic diameter" -> "LVEDD",
+      "left bundle branch block" -> "LBBB",
+      "left ventricular end diastolic dimension" -> "LVEDD",
+      "valve in valve" -> "valve-in-valve",
+      "trans-femoral" -> "transfemoral",
+      "left ventricular end systolic dimension" -> "LVESD",
+      "periprocedurally" -> "peri-procedurally",
+      "trans-aortic" -> "transaortic",
+      "transcatheter aortic valve implantation" -> "TAVI",
+      "prehospital" -> "pre-hospital",
+      "left ventricular ejection fraction" -> "LVEF",
+      "transcatheter aortic valve replacement" -> "TAVR",
+      "left ventricular outflow tract" -> "LVOT",
+      "transesophageal echocardiogram" -> "TEE",
+      "transesophageal echocardiography" -> "TEE",
+      "periprocedural" -> "peri-procedural")
+
+    val caseIrrelevantToReplace = Map(
+      "FU" -> "follow-up",
+      "x-ray" -> "X-ray",
+      "Kaplan Meier" -> "Kaplan-Meier",
+      "New York Heart Association" -> "NYHA"
+    )
+
+    val input2 = toReplaceMap.toList.foldRight(List(input))((pair, outputs) => pair match {
+      case (toReplace: String, replacement: String) => {
+        val firstChar = toReplace.head
+        val regex = s"\\b[${firstChar.toUpper}$firstChar]${toReplace.tail}\\b".r
+        val output = regex.replaceAllIn(outputs.head, regexMatch => {
+          if(StringUtils.isCapitalized(regexMatch.toString)) {
+            StringUtils.capitalize(replacement)
+          } else {
+            replacement
+          }
+        })
+        output +: outputs
+      }
+    }).head
+
+    caseIrrelevantToReplace.toList.foldRight(List(input2))((pair, outputs) => pair match {
+      case (toReplace: String, replacement: String) => {
+        val regex = s"\\b$toReplace\\b".r
+        regex.replaceAllIn(outputs.head, replacement) +: outputs
+      }
+    }).head
+  }
+}
