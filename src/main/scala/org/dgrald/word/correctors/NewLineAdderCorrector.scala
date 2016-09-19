@@ -11,7 +11,7 @@ object NewLineAdderCorrector extends Corrector {
       case List(oneItem) => s"$output $oneItem"
       case first +: second +: rest =>
         if(first.endsWith(".") && second.matches("[A-Z].*")) {
-          val listOfAbbreviationsToIgnore = List("vs.", "U.S.", "St.", "Dr.")
+          val listOfAbbreviationsToIgnore = Constants.exceptionsToTrailingPeriod
           if(!listOfAbbreviationsToIgnore.contains(first)) {
             return fixRecursively(s"$output $first\n$second", rest)
           }

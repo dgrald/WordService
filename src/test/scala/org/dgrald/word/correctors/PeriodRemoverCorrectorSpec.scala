@@ -1,6 +1,7 @@
 package org.dgrald.word.correctors
 
 import org.specs2.mutable.Specification
+import org.specs2.specification.core.Fragment
 
 /**
   * Created by dylangrald on 9/18/16.
@@ -29,5 +30,27 @@ class PeriodRemoverCorrectorSpec extends Specification {
     val output = PeriodRemoverCorrector.correct(input)
 
     output must_== input
+  }
+
+  "Should not remove period at end of line in" >> {
+    Fragment.foreach(Constants.exceptionsToTrailingPeriod){ exception =>
+      val input = s"Something ending in $exception\nAnd another thing."
+      s"'$input'" ! {
+        val output = PeriodRemoverCorrector.correct(input)
+
+        output must_== s"Something ending in $exception\nAnd another thing"
+      }
+    }
+  }
+
+  "Should not remove period at end of" >> {
+    Fragment.foreach(Constants.exceptionsToTrailingPeriod){ exception =>
+      val input = s"Something ending in $exception"
+      s"'$input'" ! {
+        val output = PeriodRemoverCorrector.correct(input)
+
+        output must_== input
+      }
+    }
   }
 }
