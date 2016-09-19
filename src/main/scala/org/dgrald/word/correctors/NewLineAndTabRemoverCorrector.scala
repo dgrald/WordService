@@ -6,11 +6,11 @@ package org.dgrald.word.correctors
 object NewLineAndTabRemoverCorrector extends Corrector {
 
   override def correct(input: String, otherInstructions: List[Any] = List()): String = {
-    val tabsRegex = "\\t".r
-    val input2 = tabsRegex.replaceAllIn(input, " ")
+    val hyphensSurroundedByTabsOrNewLinesRegex = "([\\n\\r\\t]*)(-)([\\n\\r\\t]*)".r
+    val input2 = hyphensSurroundedByTabsOrNewLinesRegex.replaceAllIn(input, "-")
 
-    val hyphensSurroundedByWhiteSpace = "[\\s]*-[\\s]*".r
-    val input3 = hyphensSurroundedByWhiteSpace.replaceAllIn(input2, "-")
+    val tabsRegex = "\\t".r
+    val input3 = tabsRegex.replaceAllIn(input2, " ")
 
     val newLineRegex = "[\\n\\r]".r
     newLineRegex.replaceAllIn(input3, " ")

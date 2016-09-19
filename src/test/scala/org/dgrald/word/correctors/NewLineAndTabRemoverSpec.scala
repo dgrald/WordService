@@ -21,7 +21,9 @@ class NewLineAndTabRemoverSpec extends Specification {
     val expected = "Something that has a hyphenated-word in it, man."
 
     Fragment.foreach(List(
-      "Something that has a hyphenated\n \t-\t \nword in it,\nman.")) { testCase =>
+      "Something that has a hyphenated-\nword in it,\nman.",
+      "Something that has a hyphenated\n-\nword in it,\nman.",
+      "Something that has a hyphenated\n\t-\t\nword in it,\nman.")) { testCase =>
       s"'$testCase' to '$expected'" ! {
         val output = NewLineAndTabRemoverCorrector.correct(testCase)
 
