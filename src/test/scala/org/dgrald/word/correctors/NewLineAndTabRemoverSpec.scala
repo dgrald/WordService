@@ -31,4 +31,19 @@ class NewLineAndTabRemoverSpec extends Specification {
       }
     }
   }
+
+  "Should correct" >> {
+    val expected = "Something with a comma, man."
+
+    Fragment.foreach(List(
+      "Something with a comma,\nman.",
+      "Something with a comma\n,\nman.",
+      "Something with a comma\t\n,\t\nman.")) { testCase =>
+      s"'$testCase' to '$expected'" ! {
+        val output = NewLineAndTabRemoverCorrector.correct(testCase)
+
+        output must_== expected
+      }
+    }
+  }
 }
