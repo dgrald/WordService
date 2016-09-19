@@ -19,12 +19,12 @@ object WordServiceCorrector {
   def getCorrectors(createNewLines: Boolean, removeNewLines: Boolean, addAsterisks: Boolean): List[Corrector] = {
     val afterRemovingNewLines = List(PreWordCorrector, FollowUpCorrector, HyphenCorrector, VersusCorrector, ComparisonSymbolCorrector, FindAndReplaceCorrector, BulletCorrector, MultipleSpaceCorrector)
     val beforeAddingNewLines = if(removeNewLines) afterRemovingNewLines ++ List(RemoveNewLineAndTabCorrector) else afterRemovingNewLines
-    val afterAddingNewLines = List(WordToOrdinalCorrector, WordToNumberCorrector, PlusAndMinusCorrector, PercentageSpaceCorrector, MonthAbbreviationCorrector)
+    val afterAddingNewLines = List(WordToOrdinalCorrector, WordToNumberCorrector, PlusAndMinusCorrector, PercentageSpaceCorrector, MonthAbbreviationCorrector, PeriodRemoverCorrector)
     if (createNewLines) {
       if(addAsterisks) {
-        afterAddingNewLines ++ List(AsteriskCorrector, NewLineCorrector) ++ beforeAddingNewLines
+        afterAddingNewLines ++ List(AsteriskCorrector, NewLineAdderCorrector) ++ beforeAddingNewLines
       } else {
-        afterAddingNewLines ++ List(NewLineCorrector) ++ beforeAddingNewLines
+        afterAddingNewLines ++ List(NewLineAdderCorrector) ++ beforeAddingNewLines
       }
     } else {
       if(addAsterisks) {
