@@ -24,7 +24,7 @@ class PlusAndMinusCorrectorSpec extends Specification {
     }
   }
 
-  "Should eliminate plus or minus symbol" >> {
+  "Should eliminate plus or minus symbol and plus or minus number" >> {
     Fragment.foreach(plusOrMinusSymbols) { plusOrMinus =>
       s"in 'Something 12.23 $plusOrMinus 22.29 something'"  ! {
         val input = s"Something 12.23 $plusOrMinus 22.29 something"
@@ -32,6 +32,18 @@ class PlusAndMinusCorrectorSpec extends Specification {
         val output = PlusAndMinusCorrector.correct(input)
 
         output must_== "Something 12.23 something"
+      }
+    }
+  }
+
+  "Should eliminate plus or minus symbol and plus or minus number" in {
+    Fragment.foreach(plusOrMinusSymbols) { plusOrMinus =>
+      s"in 'Something 8.9${plusOrMinus}8 years.'"  ! {
+        val input = s"Something 8.9${plusOrMinus}8 years."
+
+        val output = PlusAndMinusCorrector.correct(input)
+
+        output must_== "Something 8.9 years."
       }
     }
   }
