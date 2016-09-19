@@ -8,19 +8,11 @@ import org.specs2.mutable.Specification
   */
 class RemoveNewLineAndTabCorrectorSpec extends Specification {
 
-  "Should strip new line characters" in {
-    val input = "Something with multiple\r new lines\n\n and \ttabs \tin a string."
+  "Should replace tabs and new lines with spaces" in {
+    val input = "Something with multiple\rnew lines\n\nand \ttabs \tin a string."
 
-    var output = RemoveNewLineAndTabCorrector.correct(input)
+    val output = RemoveNewLineAndTabCorrector.correct(input)
 
-    output must_== "Something with multiple new lines and tabs in a string."
-  }
-
-  "Should replace new line characters with space when there is a period followed by a new line" in {
-    val input = "Something sentence one.\nSomething sentence two.\n\nSomething sentence three."
-
-    var output = RemoveNewLineAndTabCorrector.correct(input)
-
-    output must_== "Something sentence one. Something sentence two. Something sentence three."
+    output must_== "Something with multiple new lines  and  tabs  in a string."
   }
 }

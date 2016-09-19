@@ -6,11 +6,8 @@ package org.dgrald.word.correctors
 object RemoveNewLineAndTabCorrector extends Corrector {
 
   override def correct(input: String, otherInstructions: List[Any] = List()): String = {
-    val newLineFollowedByPeriodRegex = "[.][\\n\\r]+".r
-    val newInput = newLineFollowedByPeriodRegex.replaceAllIn(input, ". ")
-
-    val whitespaceRegex = "[\\n\\r\\t]".r
-    whitespaceRegex.replaceAllIn(newInput, "")
+    val tabsAndNewLinesRegex = "[\\n\\r\\t]".r
+    tabsAndNewLinesRegex.replaceAllIn(input, " ")
   }
 
 }
