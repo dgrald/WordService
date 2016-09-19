@@ -5,8 +5,9 @@ package org.dgrald.word.correctors
   */
 object PeriodRemoverCorrector extends Corrector {
   override def correct(input: String, otherInstructions: List[Any]): String = {
-    val regex = ".[\\s]*\\n".r
-    val intermediateInput = regex.replaceAllIn(input, "\n")
+    val periodFollowedByNewLineRegex = "\\.[\\s]*\\n".r
+    val intermediateInput = periodFollowedByNewLineRegex.replaceAllIn(input, "\n")
+
     val periodAtEndOfStringRegex = "\\.[\\s]*\\z".r
     periodAtEndOfStringRegex.replaceAllIn(intermediateInput, "")
   }

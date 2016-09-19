@@ -12,7 +12,8 @@ object WordServiceCorrector {
     val correctors: List[Corrector] = getCorrectors(createNewLines, removeNewLines, addAsterisks)
 
     correctors.foldRight(List(input))((corrector, resultList) => {
-      corrector.correct(resultList.head, otherInstructions) +: resultList
+      val corrected = corrector.correct(resultList.head, otherInstructions)
+      corrected +: resultList
     }).head
   }
 

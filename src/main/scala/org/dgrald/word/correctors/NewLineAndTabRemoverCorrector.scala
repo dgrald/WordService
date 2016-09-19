@@ -11,7 +11,7 @@ object NewLineAndTabRemoverCorrector extends Corrector {
     val commaSurroundedByTabsOrNewLinesRegex = s"[$tabsOrNewLines]*,[$tabsOrNewLines]*".r
     val input2 = commaSurroundedByTabsOrNewLinesRegex.replaceAllIn(input, ", ")
 
-    val hyphensSurroundedByTabsOrNewLinesRegex = s"([$tabsOrNewLines]*)(-)([$tabsOrNewLines]*)".r
+    val hyphensSurroundedByTabsOrNewLinesRegex = s"[$tabsOrNewLines]*-[$tabsOrNewLines]*".r
     val input3 = hyphensSurroundedByTabsOrNewLinesRegex.replaceAllIn(input2, "-")
 
     val tabsRegex = "\\t".r
