@@ -11,14 +11,10 @@ object NumberCommaCorrector extends Corrector {
       val split = regexMatch.toString().split(",")
       if(split.length == 2) {
         val secondPart = split(1)
-        if(secondPart.length == 3) {
-          if(split(0).head == '0') {
-            split.mkString(".")
-          } else {
-            regexMatch.toString()
-          }
-        } else {
+        if(split(0).head == '0' || secondPart.length != 3) {
           split.mkString(".")
+        } else {
+          regexMatch.toString()
         }
       } else {
         regexMatch.toString()
