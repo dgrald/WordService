@@ -46,4 +46,12 @@ class NewLineAndTabRemoverSpec extends Specification {
       }
     }
   }
+
+  "Should not add a space after a comma if the comma separates digits" in {
+    val input = "Something 3,690 mm."
+
+    val output = NewLineAndTabRemoverCorrector.correct(input)
+
+    output must_== input
+  }
 }

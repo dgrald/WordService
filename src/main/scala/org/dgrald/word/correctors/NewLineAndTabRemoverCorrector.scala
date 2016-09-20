@@ -9,7 +9,17 @@ object NewLineAndTabRemoverCorrector extends Corrector {
     val tabsOrNewLines = "\\n\\r\\t"
 
     val commaSurroundedByTabsOrNewLinesRegex = s"[$tabsOrNewLines]*,[$tabsOrNewLines]*".r
-    val input2 = commaSurroundedByTabsOrNewLinesRegex.replaceAllIn(input, ", ")
+    val input2 = commaSurroundedByTabsOrNewLinesRegex.replaceAllIn(input, regexMatch => {
+      if(regexMatch.start > 0) {
+        if(input.charAt(regexMatch.start - 1).isDigit) {
+          ","
+        } else {
+          ", "
+        }
+      } else {
+        ", "
+      }
+    })
 
     val hyphensSurroundedByTabsOrNewLinesRegex = s"[$tabsOrNewLines]*-[$tabsOrNewLines]*".r
     val input3 = hyphensSurroundedByTabsOrNewLinesRegex.replaceAllIn(input2, "-")
