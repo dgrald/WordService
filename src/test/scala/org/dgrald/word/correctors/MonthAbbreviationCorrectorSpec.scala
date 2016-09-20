@@ -31,4 +31,22 @@ class MonthAbbreviationCorrectorSpec extends Specification {
       }
     }
   }
+
+  "Should replace month" >> {
+    Fragment.foreach(mapOfMonthAbbreviations.keys.toList) { key =>
+      val value = mapOfMonthAbbreviations(key)
+      s"'$key/2008' with '$value 2008'" ! {
+        val input = s"Something with $key/2008 in it."
+        MonthAbbreviationCorrector.correct(input) must_== s"Something with $value 2008 in it."
+      }
+    }
+  }
+
+  "Should not replace the '/' character if month is followed by '/' and then a non-year" in {
+    val input = "Something with August/September in it."
+
+    val output = MonthAbbreviationCorrector.correct(input)
+
+    output must_== "Something with Aug./Sept. in it."
+  }
 }

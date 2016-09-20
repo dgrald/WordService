@@ -1,7 +1,5 @@
 package org.dgrald.word.correctors
 
-import org.dgrald.word.correctors.Corrector
-
 /**
   * Created by dylangrald on 8/31/16.
   */
@@ -22,7 +20,21 @@ object MonthAbbreviationCorrector extends Corrector {
     )
 
     mapOfMonthAbbreviations.foldRight(List(input))((map, list) => map match {
-      case (key, value) => list.head.replaceAll(s"\\b$key", value) +: list
+      case (key, value) => {
+        val regex = s"\\b$key(/)?".r
+        val newInput = regex.replaceAllIn(list.head, regexMatch => {
+          if(regexMatch.toString().last == '/') {
+            if(list.head.length > regexMatch.end + 1 && list.head(regexMatch.end + 1).isDigit) {
+              s"$value "
+            } else {
+              s"$value/"
+            }
+          } else {
+            value
+          }
+        })
+        newInput +: list
+      }
     }).head
   }
 }
