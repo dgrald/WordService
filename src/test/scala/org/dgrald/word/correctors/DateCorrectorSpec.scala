@@ -25,6 +25,34 @@ class DateCorrectorSpec extends Specification {
   "Should replace" >> {
     Fragment.foreach(mapOfMonths.toList) {
       case (toReplace: String, replacement: String) => {
+        s"'$toReplace/ 2008' with '$replacement 2008'" ! {
+          val input = s"Something with $toReplace/ 2008 in it."
+
+          val output = DateCorrector.correct(input)
+
+          output must_== s"Something with $replacement 2008 in it."
+        }
+      }
+    }
+  }
+
+  "Should replace" >> {
+    Fragment.foreach(mapOfMonths.toList.filter(pair => pair._1.length == 1)) {
+      case (toReplace: String, replacement: String) => {
+        s"'0$toReplace/ 2008' with '$replacement 2008'" ! {
+          val input = s"Something with 0$toReplace/ 2008 in it."
+
+          val output = DateCorrector.correct(input)
+
+          output must_== s"Something with $replacement 2008 in it."
+        }
+      }
+    }
+  }
+
+  "Should replace" >> {
+    Fragment.foreach(mapOfMonths.toList) {
+      case (toReplace: String, replacement: String) => {
         s"'$toReplace/2008' with '$replacement 2008'" ! {
           val input = s"Something with $toReplace/2008 in it."
 

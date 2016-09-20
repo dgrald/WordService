@@ -22,10 +22,10 @@ object DateCorrector extends Corrector {
 
     mapOfMonths.toList.foldRight(List(input))((pair, outputs) => pair match {
       case (toReplace: String, replacement: String) => {
-        val regex = s"\\b0?$toReplace/[0-9]+".r
+        val regex = s"\\b0?$toReplace/(\\s)*[0-9]+".r
         val output = regex.replaceAllIn(outputs.head, regexMatch => {
           val split = regexMatch.toString().split("/")
-          replacement ++ " " ++ split.last
+          replacement ++ " " ++ split.last.trim
         })
         output +: outputs
       }
