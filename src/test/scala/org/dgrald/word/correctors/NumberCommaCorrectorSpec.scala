@@ -11,7 +11,8 @@ class NumberCommaCorrectorSpec extends Specification {
   "Should correct" >> {
     val testCases = List(
       ("3,69", "3.69"),
-      ("0,4222", "0.4222")
+      ("0,4222", "0.4222"),
+      ("0,998", "0.998")
     )
     Fragment.foreach(testCases) {
       case (in: String, expected: String) => s"'$in' to '$expected'" ! {
