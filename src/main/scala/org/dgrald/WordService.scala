@@ -6,6 +6,8 @@ import org.scalatra.servlet.FileUploadSupport
 
 class WordService extends WordServiceStack with FileUploadSupport with FlashMapSupport {
 
+  val title = "Text Correction Tool"
+
   get("/") {
     val removeNewLinesMessage = "Remove line breaks in source"
     val newLinesMessage = "Put each sentence on its own line"
@@ -19,7 +21,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
         <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
-        <title>Text Correction Input</title>
+        <title>{title}</title>
       </head>
 
       <body>
@@ -177,7 +179,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
         <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
-        <title>Text Correction Result</title>
+        <title>{title}</title>
       </head>
       <body>
         <div style="padding-left: 6px; padding-right: 15px;">
