@@ -5,21 +5,8 @@ package org.dgrald.word.correctors
   */
 object MonthAbbreviationCorrector extends Corrector {
   override def correct(input: String, otherInstructions: List[Any] = List()): String = {
-    val mapOfMonthAbbreviations = Map("January" -> "Jan.",
-      "February" -> "Feb.",
-      "March" -> "March",
-      "April" -> "April",
-      "May" -> "May",
-      "June" -> "June",
-      "July" -> "July",
-      "August" -> "Aug.",
-      "September" -> "Sept.",
-      "October" -> "Oct.",
-      "November" -> "Nov.",
-      "December" -> "Dec."
-    )
 
-    mapOfMonthAbbreviations.foldRight(List(input))((map, list) => map match {
+    Constants.mapOfMonthAbbreviations.foldRight(List(input))((map, list) => map match {
       case (key, value) =>
         val regex = s"\\b$key(/)?".r
         val newInput = regex.replaceAllIn(list.head, regexMatch => {
