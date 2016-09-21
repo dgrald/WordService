@@ -20,11 +20,11 @@ object MonthAbbreviationCorrector extends Corrector {
     )
 
     mapOfMonthAbbreviations.foldRight(List(input))((map, list) => map match {
-      case (key, value) => {
+      case (key, value) =>
         val regex = s"\\b$key(/)?".r
         val newInput = regex.replaceAllIn(list.head, regexMatch => {
           if(regexMatch.toString().last == '/') {
-            if(list.head.length > regexMatch.end + 1 && list.head(regexMatch.end + 1).isDigit) {
+            if(list.head.length > regexMatch.end + 2 && list.head(regexMatch.end + 1).isDigit) {
               s"$value "
             } else {
               s"$value/"
@@ -33,8 +33,7 @@ object MonthAbbreviationCorrector extends Corrector {
             value
           }
         })
-        newInput +: list
-      }
+        MultipleSpaceCorrector.correct(newInput) +: list
     }).head
   }
 }

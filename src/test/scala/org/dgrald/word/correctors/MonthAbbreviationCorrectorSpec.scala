@@ -49,4 +49,12 @@ class MonthAbbreviationCorrectorSpec extends Specification {
 
     output must_== "Something with Aug./Sept. in it."
   }
+
+  "Should replace multiple months" in {
+    val input = "Retrospective single-center study including all patients undergoing TAVI between August/ 2007 and November/ 2015"
+
+    val output = MonthAbbreviationCorrector.correct(input)
+
+    output must_== "Retrospective single-center study including all patients undergoing TAVI between Aug. 2007 and Nov. 2015"
+  }
 }

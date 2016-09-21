@@ -24,7 +24,7 @@ object WordToNumberCorrector extends Corrector {
     )
 
     def isPrecededByHyphen(regexMatch: Match): Boolean = {
-      regexMatch.start > 2 && regexMatch.source.toString().charAt(regexMatch.start - 1) == '-'
+      regexMatch.start > 2 && regexMatch.source.toString.charAt(regexMatch.start - 1) == '-'
     }
 
     wordsToNumbersMap.foldRight(List(input))((tuple, outputs) => tuple match {

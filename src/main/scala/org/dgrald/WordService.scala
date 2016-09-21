@@ -51,12 +51,12 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <!-- Actual body !-->
         <div style="padding-left: 6px; padding-right: 15px;">
           <h3>Input text here:</h3>
-          <form method="post" enctype="multipart/form-data">
+          <form method="post" enctype="multipart/form-data" style="margin-bottom: 6px; padding-bottom: 0px;">
             <textarea class="form-control" name="filecontents" rows="20"></textarea>
             <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
             <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
             <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
-            <div class="panel-group">
+            <div class="panel-group" style="margin-bottom: 6px;">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
