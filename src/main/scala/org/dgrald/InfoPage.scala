@@ -31,7 +31,7 @@ object InfoPage {
         <li>Removes spaces between number and percentage sign</li>
         <li>For numbers 0-10, replaces the spelled out word with the digits</li>
         <li>For ordinal numbers 1-10, replaces the spelled out word with the shortened ordinal representation (e.g. “first row” becomes “1st row”; however, “first 1 mm” remains unchanged)</li>
-        <li>Formats some dates (e.g. “January” becomes “Jan.”; also “9/2010” becomes “Sept. 2010”)</li>
+        <li>Formats some dates (e.g. “January” becomes “Jan.”)</li>
         <li>For all words beginning in “post”, “intra”, or “anti”, it adds a hyphen after the prefix (e.g. “postprocedural” becomes “post-procedural”)</li>
         <li>For some words beginning in “pre”, it adds a hyphen after “pre”</li>
         <ul>
