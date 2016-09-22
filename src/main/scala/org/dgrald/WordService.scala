@@ -145,14 +145,10 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
       case Some(contents) => contents
       case None =>
         val file = fileParams("thefile")
-//        val fileType = file.getName.split(".").last
-//        if(fileType == "pdf") {
-//          PdfTextParser.getTextFromPdf(file.get()) match {
-//            case Some(text) => text
-//            case _ => throw new Exception("Could not get file")
-//          }
-//        } else {
-          ImageFileTextParser.getTextFromFile(file.get())
+        PdfTextParser.getTextFromPdf(file.get()) match {
+          case Some(text) => text
+          case _ => throw new Exception("Could not get file")
+        }
     }
 
     val newLinesParam = params.getOrElse("linebreaks", "false")
