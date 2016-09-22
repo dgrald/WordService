@@ -36,7 +36,9 @@ object BasicReplaceCorrector extends Corrector {
       "left ventricular outflow tract" -> "LVOT",
       "transesophageal echocardiogram" -> "TEE",
       "transesophageal echocardiography" -> "TEE",
-      "periprocedural" -> "peri-procedural")
+      "periprocedural" -> "peri-procedural",
+      "follow up" -> "follow-up"
+    )
 
     val caseIrrelevantToReplace = Map(
       "FU" -> "follow-up",
