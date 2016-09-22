@@ -40,7 +40,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                 <h4 class="modal-title" id="myModalLabel">Information</h4>
               </div>
               <div class="modal-body">
-                TODO
+                {InfoPage.info}
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
