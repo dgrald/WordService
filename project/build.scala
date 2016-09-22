@@ -32,7 +32,9 @@ object WordServiceBuild extends Build {
         "org.eclipse.jetty" % "jetty-webapp" % "9.1.5.v20140505" % "compile;container",
         "org.eclipse.jetty" % "jetty-plus" % "9.1.5.v20140505" % "compile;container",
         "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
-        "org.apache.pdfbox" % "pdfbox" % "2.0.2"
+        "org.apache.pdfbox" % "pdfbox" % "2.0.2",
+        "net.sourceforge.tess4j" % "tess4j" % "3.2.1",
+        "commons-io" % "commons-io" % "2.5"
       ),
       scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
         Seq(
