@@ -65,25 +65,26 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
                   <div class="panel-body">
-                    <table>
+                    <table class="table">
                       <tr>
                         <th>Replace this term:</th>
                         <th>With this:</th>
+                        <th>{replaceAllButFirstMessage}</th>
                       </tr>
                       <tr>
-                        <td><input type="text" name="replace1"></input></td>
-                        <td><input type="text" name="replacement1"></input></td>
-                        <td style="padding-left: 4px;"><input type="checkbox" name="replaceallbutfirst1"/>{replaceAllButFirstMessage}</td>
+                        <td><input type="text" name="replace1" size="50"></input></td>
+                        <td><input type="text" name="replacement1" size="50"></input></td>
+                        <td><input type="checkbox" name="replaceallbutfirst1"/></td>
                       </tr>
                       <tr>
-                        <td><input type="text" name="replace2"></input></td>
-                        <td><input type="text" name="replacement2"></input></td>
-                        <td style="padding-left: 4px;"><input type="checkbox" name="replaceallbutfirst2"/>{replaceAllButFirstMessage}</td>
+                        <td><input type="text" name="replace2" size="50"></input></td>
+                        <td><input type="text" name="replacement2" size="50"></input></td>
+                        <td><input type="checkbox" name="replaceallbutfirst2"/></td>
                       </tr>
                       <tr>
-                        <td><input type="text" name="replace3"></input></td>
-                        <td><input type="text" name="replacement3"></input></td>
-                        <td style="padding-left: 4px;"><input type="checkbox" name="replaceallbutfirst3"/>{replaceAllButFirstMessage}</td>
+                        <td><input type="text" name="replace3" size="50"></input></td>
+                        <td><input type="text" name="replacement3" size="50"></input></td>
+                        <td><input type="checkbox" name="replaceallbutfirst3"/></td>
                       </tr>
                     </table>
                   </div>
@@ -106,25 +107,26 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                     <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
                     <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
                     <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
-                    <table>
+                    <table class="table">
                       <tr>
                         <th>Replace this term:</th>
                         <th>With this:</th>
+                        <th>{replaceAllButFirstMessage}</th>
                       </tr>
                       <tr>
-                        <td><input type="text" name="replace1"></input></td>
-                        <td><input type="text" name="replacement1"></input></td>
-                        <td style="padding-left: 4px;"><input type="checkbox" name="replaceallbutfirst1"/>{replaceAllButFirstMessage}</td>
+                        <td><input type="text" name="replace1" size="50"></input></td>
+                        <td><input type="text" name="replacement1" size="50"></input></td>
+                        <td><input type="checkbox" name="replaceallbutfirst1"/></td>
                       </tr>
                       <tr>
-                        <td><input type="text" name="replace2"></input></td>
-                        <td><input type="text" name="replacement2"></input></td>
-                        <td style="padding-left: 4px;"><input type="checkbox" name="replaceallbutfirst2"/>{replaceAllButFirstMessage}</td>
+                        <td><input type="text" name="replace2" size="50"></input></td>
+                        <td><input type="text" name="replacement2" size="50"></input></td>
+                        <td><input type="checkbox" name="replaceallbutfirst2"/></td>
                       </tr>
                       <tr>
-                        <td><input type="text" name="replace3"></input></td>
-                        <td><input type="text" name="replacement3"></input></td>
-                        <td style="padding-left: 4px;"><input type="checkbox" name="replaceallbutfirst3"/>{replaceAllButFirstMessage}</td>
+                        <td><input type="text" name="replace3" size="50"></input></td>
+                        <td><input type="text" name="replacement3" size="50"></input></td>
+                        <td><input type="checkbox" name="replaceallbutfirst3"/></td>
                       </tr>
                     </table>
                     <input type="submit" class="btn btn-primary blue"/>
