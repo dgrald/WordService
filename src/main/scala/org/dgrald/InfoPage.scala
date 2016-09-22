@@ -27,6 +27,7 @@ object InfoPage {
           <li>Not perfect: 1,324 will not be changed to 1.324</li>
         </ul>
         <li>Removes plus or minus values (e.g. “2 +/- 5 mm” becomes “2 mm”)</li>
+        <li>Removes trademark and registered trademark symbols</li>
         <li>Removes spaces between number and percentage sign</li>
         <li>For numbers 0-10, replaces the spelled out word with the digits</li>
         <li>For ordinal numbers 1-10, replaces the spelled out word with the shortened ordinal representation (e.g. “first row” becomes “1st row”; however, “first 1 mm” remains unchanged)</li>
