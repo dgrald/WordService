@@ -47,4 +47,17 @@ class PlusAndMinusCorrectorSpec extends Specification {
       }
     }
   }
+
+  "Should replace" >> {
+    Fragment.foreach(List("4,300", "2,300,999")) { testCase =>
+      s"'4444 +/- $testCase mm' with '4444 mm'" ! {
+        val input = s"Something with 4444 +/- $testCase mm"
+
+        val output = PlusAndMinusCorrector.correct(input)
+
+        output must_== "Something with 4444 mm"
+      }
+
+    }
+  }
 }
