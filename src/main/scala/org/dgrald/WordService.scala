@@ -10,7 +10,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
   val title = "Text Correction Tool"
 
   get("/") {
-    getMainPage("")
+    getMainPage()
   }
 
   post("/") {
@@ -39,7 +39,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     val asterisks = params.getOrElse("asterisks", "false")
     val addAsterisks = asterisks == "on"
 
-    val runCorrectionsParam = params.getOrElse("runcorrections", "on")
+    val runCorrectionsParam = params.getOrElse("runcorrections", "false")
     val runCorrections = runCorrectionsParam == "on"
 
     def extractReplacementInstructions: List[(String, String, Boolean)] = {
@@ -62,10 +62,29 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
       fileContents
     }
 
-    getMainPage(output)
+    <html>
+      <head>
+        <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
+        <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <title>{title}</title>
+      </head>
+      <body>
+        <div style="padding-left: 6px; padding-right: 15px;">
+          <form method="get" enctype="multipart/form-data">
+            <div style="padding: 4px;">
+              <input type="submit" value="Back" class="btn btn-primary blue"/>
+            </div>
+            <div>
+              <textarea rows="25" wrap="soft" autofocus="true" onfocus="this.select()" class="form-control">{output}</textarea>
+            </div>
+          </form>
+        </div>
+      </body>
+    </html>
   }
 
-  def getMainPage(text: String = "") = {
+  def getMainPage() = {
     val runCorrectionsMessage = "Run text correction tool automatically"
     val removeNewLinesMessage = "Remove line breaks in source"
     val newLinesMessage = "Put each sentence on its own line"
@@ -110,7 +129,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <div style="padding-left: 6px; padding-right: 15px;">
           <h3>Input text here:</h3>
           <form method="post" enctype="multipart/form-data" style="margin-bottom: 6px; padding-bottom: 0px;">
-            <textarea rows="25" wrap="soft" autofocus="true" onfocus="this.select()" name="filecontents" class="form-control">{text}</textarea>
+            <textarea rows="25" wrap="soft" name="filecontents" class="form-control"></textarea>
             <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
             <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
             <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
