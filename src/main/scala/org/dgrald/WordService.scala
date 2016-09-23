@@ -39,7 +39,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     val asterisks = params.getOrElse("asterisks", "false")
     val addAsterisks = asterisks == "on"
 
-    val runCorrectionsParam = params.getOrElse("runcorrections", "false")
+    val runCorrectionsParam = params.getOrElse("runcorrections", "on")
     val runCorrections = runCorrectionsParam == "on"
 
     def extractReplacementInstructions: List[(String, String, Boolean)] = {
