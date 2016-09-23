@@ -24,6 +24,7 @@ object WordServiceBuild extends Build {
       scalaVersion := ScalaVersion,
       resolvers += Classpaths.typesafeReleases,
       resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
+      resolvers += "spray repo" at "http://repo.spray.io",
       libraryDependencies ++= Seq(
         "org.scalatra" %% "scalatra" % ScalatraVersion,
         "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
@@ -32,7 +33,10 @@ object WordServiceBuild extends Build {
         "org.eclipse.jetty" % "jetty-webapp" % "9.1.5.v20140505" % "compile;container",
         "org.eclipse.jetty" % "jetty-plus" % "9.1.5.v20140505" % "compile;container",
         "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
-        "org.apache.pdfbox" % "pdfbox" % "2.0.2"
+        "org.apache.pdfbox" % "pdfbox" % "2.0.2",
+        "org.scalaj" %% "scalaj-http" % "2.3.0",
+        "org.json4s" %% "json4s-native" % "3.4.1",
+        "org.json4s" %% "json4s-jackson" % "3.4.1"
       ),
       scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
         Seq(
