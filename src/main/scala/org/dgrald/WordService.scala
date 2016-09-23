@@ -14,17 +14,22 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
   }
 
   post("/") {
-    val fileContents: String = params.get("filecontents") match {
-      case Some(contents) => contents
+    def getRunCorrections(paramName: String): Boolean = {
+      val runCorrections = params.getOrElse(paramName, "on")
+      runCorrections == "on"
+    }
+
+    val textCorrection: (String, Boolean) = params.get("filecontents") match {
+      case Some(contents) => (contents, true)
       case None =>
         fileParams.get("pdffile") match {
           case Some(file) => PdfTextParser.getTextFromPdf(file.get()) match {
-            case Some(parsed) => parsed
+            case Some(parsed) => (parsed, getRunCorrections("runcorrectionspdf"))
             case _ => throw new Exception("Exception occured while attempting to parse PDF file")
           }
           case None =>
             fileParams.get("imagefile") match {
-              case Some(file) => ImageTextParser.parseText(file.get())
+              case Some(file) => (ImageTextParser.parseText(file.get()), getRunCorrections("runcorrectionsimage"))
               case _ => throw new Exception("Could not find content to parse")
             }
         }
@@ -38,9 +43,6 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
     val asterisks = params.getOrElse("asterisks", "false")
     val addAsterisks = asterisks == "on"
-
-    val runCorrectionsParam = params.getOrElse("runcorrections", "false")
-    val runCorrections = runCorrectionsParam == "on"
 
     def extractReplacementInstructions: List[(String, String, Boolean)] = {
       def extractReplacement(num: Int): (String, String, Boolean) = {
@@ -56,10 +58,12 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
     val otherInstructions = extractReplacementInstructions
 
+    val runCorrections = textCorrection._2
+
     val output = if(runCorrections) {
-      WordServiceCorrector.correct(fileContents, createNewLines, removeNewLines, addAsterisks, otherInstructions)
+      WordServiceCorrector.correct(textCorrection._1, createNewLines, removeNewLines, addAsterisks, otherInstructions)
     } else {
-      fileContents
+      textCorrection._1
     }
 
     <html>
@@ -183,7 +187,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                 <div class="panel-body">
                   <form method="post" enctype="multipart/form-data">
                     <input type="file" name="imagefile" />
-                    <input type="checkbox" name="runcorrections" checked="true"/>{runCorrectionsMessage}<br/>
+                    <input type="checkbox" name="runcorrectionsimage" checked="true"/>{runCorrectionsMessage}<br/>
                     <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
                     <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
                     <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
@@ -228,7 +232,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                 <div class="panel-body">
                   <form method="post" enctype="multipart/form-data">
                     <input type="file" name="pdffile" />
-                    <input type="checkbox" name="runcorrections" checked="true"/>{runCorrectionsMessage}<br/>
+                    <input type="checkbox" name="runcorrectionspdf" checked="true"/>{runCorrectionsMessage}<br/>
                     <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
                     <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
                     <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
