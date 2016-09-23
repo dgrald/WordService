@@ -15,7 +15,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
   post("/") {
     def getRunCorrections(paramName: String): Boolean = {
-      val runCorrections = params.getOrElse(paramName, "on")
+      val runCorrections = params.getOrElse(paramName, "false")
       runCorrections == "on"
     }
 
