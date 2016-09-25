@@ -1,7 +1,5 @@
 package org.dgrald
 
-import org.dgrald.file.parsers.{ImageTextParser, PdfTextParser}
-import org.dgrald.word.correctors.WordServiceCorrector
 import org.scalatra._
 import org.scalatra.servlet.FileUploadSupport
 
@@ -14,81 +12,13 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
   }
 
   post("/") {
-    def getRunCorrections(paramName: String): Boolean = {
-      val runCorrections = params.getOrElse(paramName, "false")
-      runCorrections == "on"
-    }
-
-    val textCorrection: (String, Boolean) = params.get("filecontents") match {
-      case Some(contents) => (contents, true)
-      case None =>
-        fileParams.get("pdffile") match {
-          case Some(file) => PdfTextParser.getTextFromPdf(file.get()) match {
-            case Some(parsed) => (parsed, getRunCorrections("runcorrectionspdf"))
-            case _ => throw new Exception("Exception occured while attempting to parse PDF file")
-          }
-          case None =>
-            fileParams.get("imagefile") match {
-              case Some(file) => (ImageTextParser.parseText(file.get()), getRunCorrections("runcorrectionsimage"))
-              case _ => throw new Exception("Could not find content to parse")
-            }
-        }
-    }
-
-    val newLinesParam = params.getOrElse("linebreaks", "false")
-    val createNewLines = newLinesParam == "on"
-
-    val removeNewLinesParam = params.getOrElse("removenewlines", "false")
-    val removeNewLines = removeNewLinesParam == "on"
-
-    val asterisks = params.getOrElse("asterisks", "false")
-    val addAsterisks = asterisks == "on"
-
-    def extractReplacementInstructions: List[(String, String, Boolean)] = {
-      def extractReplacement(num: Int): (String, String, Boolean) = {
-        (params.getOrElse(s"replace$num", ""), params.getOrElse(s"replacement$num", ""), params.getOrElse(s"replaceallbutfirst$num", "") == "on")
-      }
-
-      val instructions = (for {
-        num <- Range(1,4)
-      } yield extractReplacement(num)).toList
-
-      instructions.filter(pair => pair match {case (first: String, second: String, _: Boolean) => first != "" && second != ""})
-    }
-
-    val otherInstructions = extractReplacementInstructions
-
-    val runCorrections = textCorrection._2
-
-    val output = if(runCorrections) {
-      WordServiceCorrector.correct(textCorrection._1, createNewLines, removeNewLines, addAsterisks, otherInstructions)
-    } else {
-      textCorrection._1
-    }
-
-    <html>
-      <head>
-        <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
-        <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
-        <title>{title}</title>
-      </head>
-      <body>
-        <div style="padding-left: 6px; padding-right: 15px;">
-          <form method="get" enctype="multipart/form-data">
-            <div style="padding: 4px;">
-              <input type="submit" value="Back" class="btn btn-primary blue"/>
-            </div>
-            <div>
-              <textarea rows="25" wrap="soft" autofocus="true" onfocus="this.select()" class="form-control">{output}</textarea>
-            </div>
-          </form>
-        </div>
-      </body>
-    </html>
+    val contentExtractor = ContentExtractor()
+    val requestParams = RequestParams(params, fileParams)
+    val output = contentExtractor.getContent(requestParams)
+    getMainPage(output._1, output._2)
   }
 
-  def getMainPage() = {
+  def getMainPage(input: String = "", output: String = "") = {
     val runCorrectionsMessage = "Run text correction tool automatically"
     val removeNewLinesMessage = "Remove line breaks in source"
     val newLinesMessage = "Put each sentence on its own line"
@@ -133,7 +63,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <div style="padding-left: 6px; padding-right: 15px;">
           <h3>Input text here:</h3>
           <form method="post" enctype="multipart/form-data" style="margin-bottom: 6px; padding-bottom: 0px;">
-            <textarea rows="25" wrap="soft" name="filecontents" class="form-control"></textarea>
+            <textarea rows="25" wrap="soft" name="filecontents" class="form-control">{input}</textarea>
             <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
             <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
             <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
@@ -174,7 +104,10 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
             </div>
             <input type="submit" class="btn btn-primary blue"/>
           </form>
-
+          <h3>Output</h3>
+          <div style="padding-bottom: 6px;">
+            <textarea rows="25" wrap="soft" autofocus="true" onfocus="this.select()" class="form-control">{output}</textarea>
+          </div>
           <!-- image file section !-->
           <div class="panel-group">
             <div class="panel panel-default">

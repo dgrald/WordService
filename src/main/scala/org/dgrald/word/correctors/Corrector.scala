@@ -7,7 +7,15 @@ trait Corrector {
   def correct(input: String, otherInstructions: List[Any] = List()): String
 }
 
+abstract class WordServiceCorrector {
+  def correct(input: String, createNewLines: Boolean, removeNewLines: Boolean, addAsterisks: Boolean, otherInstructions: List[Any]): String
+}
+
 object WordServiceCorrector {
+  def apply(): WordServiceCorrector = new WordServiceCorrectorImplementation
+}
+
+private class WordServiceCorrectorImplementation extends WordServiceCorrector {
   def correct(input: String, createNewLines: Boolean, removeNewLines: Boolean, addAsterisks: Boolean, otherInstructions: List[Any]): String = {
     val correctors: List[Corrector] = getCorrectors(createNewLines, removeNewLines, addAsterisks)
 

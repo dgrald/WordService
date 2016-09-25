@@ -7,10 +7,12 @@ import org.specs2.mutable.Specification
   */
 class CorrectorSpec extends Specification {
 
+  val corrector = WordServiceCorrector()
+
   "Should run correctors in the right order" in {
     val input = "This is something. This is another thing."
 
-    val output = WordServiceCorrector.correct(input, createNewLines = true, removeNewLines = true, addAsterisks = false, List())
+    val output = corrector.correct(input, createNewLines = true, removeNewLines = true, addAsterisks = false, List())
 
     output must_== "This is something\nThis is another thing"
   }
