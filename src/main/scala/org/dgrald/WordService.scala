@@ -41,7 +41,6 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
       <body>
         <!-- Button trigger modal -->
         <div style="padding: 4px; float: right;">
-          <input type="button" class="btn" onclick="clearTextAreas()" value="Clear all"/>
           <button type="button" class="btn-info btn" data-toggle="modal" data-target="#myModal">Information</button>
         </div>
         <!-- Modal -->
@@ -66,7 +65,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <!-- Actual body !-->
         <div style="padding-left: 6px; padding-right: 15px;">
           <form method="post" enctype="multipart/form-data" style="margin-bottom: 6px; padding-bottom: 0px;">
-            <div class="container" style="margin: 0; width: 90%; boder: 0; padding: 0; padding-bottom: 4px;">
+            <div class="container" style="margin: 0; width: 90%; border: 0; padding: 0; padding-bottom: 4px;">
                 <div class="col-md-6">
                   <h3>Input</h3>
                   <textarea id="inputtextarea" rows="25" wrap="soft" name="filecontents" style="width: 100%;">{input}</textarea>
@@ -115,6 +114,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
               </div>
             </div>
             <input type="submit" class="btn btn-primary blue"/>
+            <input type="button" class="btn" onclick="clearTextAreas()" value="Clear all"/>
           </form>
           <!-- image file section !-->
           <div class="panel-group">
