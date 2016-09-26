@@ -117,7 +117,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
             <input type="button" class="btn" onclick="clearTextAreas()" value="Clear all"/>
           </form>
           <!-- image file section !-->
-          <div class="panel-group">
+          <div class="panel-group" style="margin-bottom: 4px;">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
