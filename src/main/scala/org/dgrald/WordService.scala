@@ -53,12 +53,6 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <!-- Button trigger modal -->
         <div style="padding: 4px; float: right;">
           <button type="button" class="btn-info btn" data-toggle="modal" data-target="#myModal">Information</button>
-          <div style="padding-top: 4px;">
-            <form id="wordfileform" action="wordfile" enctype="multipart/form-data" method="post" onsubmit="onWordDocSubmit()">
-              <input type="hidden" id="worddoccontents" name="worddoccontents" value=""/>
-              <input type="submit" value="Get Word Doc" class="btn btn-primary"/>
-            </form>
-          </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -132,6 +126,10 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
             </div>
             <input type="submit" onSubmit="beforeFileSubmit()" class="btn btn-primary blue"/>
             <input type="button" class="btn" onclick="clearTextAreas()" value="Clear all"/>
+          </form>
+          <form id="wordfileform" action="wordfile" enctype="multipart/form-data" method="post" onsubmit="onWordDocSubmit()">
+            <input type="hidden" id="worddoccontents" name="worddoccontents" value=""/>
+            <input type="submit" value="Get Word Doc" class="btn btn-primary"/>
           </form>
           <!-- image file section !-->
           <div class="panel-group" style="margin-bottom: 4px;">
