@@ -1,16 +1,24 @@
 package org.dgrald
 
+import java.io.ByteArrayInputStream
+
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor
+import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.scalatra.test.specs2._
 
-// For more on Specs2, see http://etorreborre.github.com/specs2/guide/org.specs2.guide.QuickStart.html
-class WordServiceSpec extends ScalatraSpec { def is =
-  "GET / on WordService"                     ^
-    "should return status 200"                  ! root200^
-                                                end
+class WordServiceSpec extends MutableScalatraSpec {
 
   addServlet(classOf[WordService], "/*")
 
-  def root200 = get("/") {
-    status must_== 200
+  "POST /wordfile" should {
+    "return a file with the input contents" in {
+      val fileContents = SomeRandom.string
+      post("/wordfile", ("worddoccontents", fileContents)) {
+        status must_== 200
+        val doc = new XWPFDocument(new ByteArrayInputStream(bodyBytes))
+        val extractor = new XWPFWordExtractor(doc)
+        extractor.getText.trim must_== fileContents
+      }
+    }
   }
 }
