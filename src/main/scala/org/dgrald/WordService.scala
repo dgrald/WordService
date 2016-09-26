@@ -1,5 +1,6 @@
 package org.dgrald
 
+import org.dgrald.file.writers.WordFileWriter
 import org.scalatra._
 import org.scalatra.servlet.FileUploadSupport
 
@@ -9,6 +10,13 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
 
   get("/") {
     getMainPage()
+  }
+
+  get("/getFileMan") {
+    contentType = "application/octet-stream"
+    val file = WordFileWriter.writeFile("Dude!")
+    response.setHeader("Content-Disposition", "attachment; filename=" + file.getName)
+    file
   }
 
   post("/") {

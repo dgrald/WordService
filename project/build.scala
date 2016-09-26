@@ -36,7 +36,11 @@ object WordServiceBuild extends Build {
         "org.apache.pdfbox" % "pdfbox" % "2.0.2",
         "org.scalaj" %% "scalaj-http" % "2.3.0",
         "org.json4s" %% "json4s-native" % "3.4.1",
-        "org.json4s" %% "json4s-jackson" % "3.4.1"
+        "org.json4s" %% "json4s-jackson" % "3.4.1",
+        "org.apache.poi" % "poi" % "3.14",
+        "org.apache.poi" % "poi-scratchpad" % "3.14",
+        "org.apache.poi" % "poi-ooxml" % "3.14",
+        "commons-io" % "commons-io" % "2.5"
       ),
       scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
         Seq(
