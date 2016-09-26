@@ -12,9 +12,13 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     getMainPage()
   }
 
-  get("/getFileMan") {
+  post("/wordfile") {
     contentType = "application/octet-stream"
-    val file = WordFileWriter.writeFile("Dude!")
+
+    val requestParams = RequestParams(params, fileParams)
+    val outputText = requestParams.getParam("worddoccontents", "")
+
+    val file = WordFileWriter.writeFile(outputText)
     response.setHeader("Content-Disposition", "attachment; filename=" + file.getName)
     file
   }
@@ -49,6 +53,12 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <!-- Button trigger modal -->
         <div style="padding: 4px; float: right;">
           <button type="button" class="btn-info btn" data-toggle="modal" data-target="#myModal">Information</button>
+          <div style="padding-top: 4px;">
+            <form id="wordfileform" action="wordfile" enctype="multipart/form-data" method="post" onsubmit="onWordDocSubmit()">
+              <input type="hidden" id="worddoccontents" name="worddoccontents" value=""/>
+              <input type="submit" value="Get Word Doc" class="btn btn-primary"/>
+            </form>
+          </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

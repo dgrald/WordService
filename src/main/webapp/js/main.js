@@ -11,3 +11,7 @@ function selectCorrectTextArea() {
         document.getElementById("inputtextarea").select();
     }
 }
+
+function onWordDocSubmit() {
+    document.getElementById("worddoccontents").value = document.getElementById("outputtextarea").value;
+}
