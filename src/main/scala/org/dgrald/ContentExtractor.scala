@@ -19,8 +19,8 @@ object ContentExtractor {
 private class ContentExtractorImplementation(corrector: WordServiceCorrector, fileParser: FileParser) extends ContentExtractor {
   def getContent(requestParams: RequestParams): (String, String) = {
 
-    val textCorrection: (String, Boolean) = requestParams.getParam("filecontents") match {
-      case Some(contents) => (contents, true)
+    val inputString: String = requestParams.getParam("filecontents") match {
+      case Some(contents) => contents
       case None => fileParser.parseFile(requestParams)
     }
 
@@ -49,14 +49,8 @@ private class ContentExtractorImplementation(corrector: WordServiceCorrector, fi
 
     val otherInstructions = extractReplacementInstructions
 
-    val runCorrections = textCorrection._2
+    val outputString = corrector.correct(inputString, createNewLines, removeNewLines, addAsterisks, otherInstructions)
 
-    val output = if (runCorrections) {
-      corrector.correct(textCorrection._1, createNewLines, removeNewLines, addAsterisks, otherInstructions)
-    } else {
-      ""
-    }
-
-    (textCorrection._1, output)
+    (inputString, outputString)
   }
 }

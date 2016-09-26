@@ -21,7 +21,6 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
   }
 
   def getMainPage(input: String = "", output: String = "") = {
-    val runCorrectionsMessage = "Run text correction tool automatically"
     val removeNewLinesMessage = "Remove line breaks in source"
     val newLinesMessage = "Put each sentence on its own line"
     val replaceAllButFirstMessage = "Replace all but first instance"
@@ -113,7 +112,7 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                 </div>
               </div>
             </div>
-            <input type="submit" class="btn btn-primary blue"/>
+            <input type="submit" onSubmit="beforeFileSubmit()" class="btn btn-primary blue"/>
             <input type="button" class="btn" onclick="clearTextAreas()" value="Clear all"/>
           </form>
           <!-- image file section !-->
@@ -128,33 +127,11 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                 <div class="panel-body">
                   <form method="post" enctype="multipart/form-data">
                     <input type="file" name="imagefile" />
-                    <input type="checkbox" name="runcorrectionsimage" checked="true"/>{runCorrectionsMessage}<br/>
-                    <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
-                    <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
-                    <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
-                    <table class="table">
-                      <tr>
-                        <th>Replace this term:</th>
-                        <th>With this:</th>
-                        <th>{replaceAllButFirstMessage}</th>
-                      </tr>
-                      <tr>
-                        <td><input type="text" name="replace1" size="50"></input></td>
-                        <td><input type="text" name="replacement1" size="50"></input></td>
-                        <td><input type="checkbox" name="replaceallbutfirst1"/></td>
-                      </tr>
-                      <tr>
-                        <td><input type="text" name="replace2" size="50"></input></td>
-                        <td><input type="text" name="replacement2" size="50"></input></td>
-                        <td><input type="checkbox" name="replaceallbutfirst2"/></td>
-                      </tr>
-                      <tr>
-                        <td><input type="text" name="replace3" size="50"></input></td>
-                        <td><input type="text" name="replacement3" size="50"></input></td>
-                        <td><input type="checkbox" name="replaceallbutfirst3"/></td>
-                      </tr>
-                    </table>
-                    <input type="submit" class="btn btn-primary blue"/>
+                    <input type="hidden" name="removenewlines" value="on"/>
+                    <input type="hidden" name="linebreaks" value="on"/>
+                    <div style="padding-top: 4px;">
+                      <input type="submit" class="btn btn-primary blue"/>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -173,33 +150,11 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                 <div class="panel-body">
                   <form method="post" enctype="multipart/form-data">
                     <input type="file" name="pdffile" />
-                    <input type="checkbox" name="runcorrectionspdf" checked="true"/>{runCorrectionsMessage}<br/>
-                    <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}
-                    <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}
-                    <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
-                    <table class="table">
-                      <tr>
-                        <th>Replace this term:</th>
-                        <th>With this:</th>
-                        <th>{replaceAllButFirstMessage}</th>
-                      </tr>
-                      <tr>
-                        <td><input type="text" name="replace1" size="50"></input></td>
-                        <td><input type="text" name="replacement1" size="50"></input></td>
-                        <td><input type="checkbox" name="replaceallbutfirst1"/></td>
-                      </tr>
-                      <tr>
-                        <td><input type="text" name="replace2" size="50"></input></td>
-                        <td><input type="text" name="replacement2" size="50"></input></td>
-                        <td><input type="checkbox" name="replaceallbutfirst2"/></td>
-                      </tr>
-                      <tr>
-                        <td><input type="text" name="replace3" size="50"></input></td>
-                        <td><input type="text" name="replacement3" size="50"></input></td>
-                        <td><input type="checkbox" name="replaceallbutfirst3"/></td>
-                      </tr>
-                    </table>
-                    <input type="submit" class="btn btn-primary blue"/>
+                    <input type="hidden" name="removenewlines" value="on"/>
+                    <input type="hidden" name="linebreaks" value="on"/>
+                    <div style="padding-top: 4px;">
+                      <input type="submit" class="btn btn-primary blue"/>
+                    </div>
                   </form>
                 </div>
               </div>

@@ -6,7 +6,7 @@ import org.dgrald.RequestParams
   * Created by dylangrald on 9/25/16.
   */
 abstract class FileParser {
-  def parseFile(params: RequestParams): (String, Boolean)
+  def parseFile(params: RequestParams): String
 }
 
 object FileParser {
@@ -14,20 +14,15 @@ object FileParser {
 }
 
 private class FileParserImplementation extends FileParser {
-  override def parseFile(requestParams: RequestParams): (String, Boolean) = {
-    def getRunCorrections(paramName: String): Boolean = {
-      val runCorrections = requestParams.getParam(paramName, "false")
-      runCorrections == "on"
-    }
-
+  override def parseFile(requestParams: RequestParams): String = {
     requestParams.getFileParam("pdffile") match {
       case Some(file) => PdfTextParser.getTextFromPdf(file) match {
-        case Some(parsed) => (parsed, getRunCorrections("runcorrectionspdf"))
+        case Some(parsed) => parsed
         case _ => throw new Exception("Exception occured while attempting to parse PDF file")
       }
       case None =>
         requestParams.getFileParam("imagefile") match {
-          case Some(file) => (ImageTextParser.parseText(file), getRunCorrections("runcorrectionsimage"))
+          case Some(file) => ImageTextParser.parseText(file)
           case _ => throw new Exception("Could not find content to parse")
         }
     }
