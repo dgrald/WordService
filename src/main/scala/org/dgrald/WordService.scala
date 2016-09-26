@@ -34,12 +34,14 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"></link>
         <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
         <title>{title}</title>
       </head>
 
       <body>
         <!-- Button trigger modal -->
         <div style="padding: 4px; float: right;">
+          <input type="button" class="btn" onclick="clearTextAreas()" value="Clear all"/>
           <button type="button" class="btn-info btn" data-toggle="modal" data-target="#myModal">Information</button>
         </div>
         <!-- Modal -->
@@ -67,11 +69,11 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
             <div class="container" style="margin: 0; width: 90%; boder: 0; padding: 0; padding-bottom: 4px;">
                 <div class="col-md-6">
                   <h3>Input</h3>
-                  <textarea rows="25" wrap="soft" name="filecontents" style="width: 100%;">{input}</textarea>
+                  <textarea id="inputtextarea" rows="25" wrap="soft" name="filecontents" style="width: 100%;">{input}</textarea>
                 </div>
                 <div class="col-md-6">
                   <h3>Output</h3>
-                  <textarea rows="25" wrap="soft" autofocus="true" onfocus="this.select()" style="width: 110%;">{output}</textarea>
+                  <textarea id="outputtextarea" rows="25" wrap="soft" autofocus="true" onfocus="selectCorrectTextArea()" style="width: 110%;">{output}</textarea>
                 </div>
             </div>
             <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
