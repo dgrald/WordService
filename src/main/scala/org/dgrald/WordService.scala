@@ -14,8 +14,10 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
   post("/") {
     val contentExtractor = ContentExtractor()
     val requestParams = RequestParams(params, fileParams)
-    val output = contentExtractor.getContent(requestParams)
-    getMainPage(output._1, output._2)
+    val content = contentExtractor.getContent(requestParams)
+    content match {
+      case (in: String, out: String) => getMainPage(in, out)
+    }
   }
 
   def getMainPage(input: String = "", output: String = "") = {
@@ -61,9 +63,17 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
         </div>
         <!-- Actual body !-->
         <div style="padding-left: 6px; padding-right: 15px;">
-          <h3>Input text here:</h3>
           <form method="post" enctype="multipart/form-data" style="margin-bottom: 6px; padding-bottom: 0px;">
-            <textarea rows="25" wrap="soft" name="filecontents" class="form-control">{input}</textarea>
+            <div class="container" style="margin: 0; width: 90%; boder: 0; padding: 0; padding-bottom: 4px;">
+                <div class="col-md-6">
+                  <h3>Input</h3>
+                  <textarea rows="25" wrap="soft" name="filecontents" style="width: 100%;">{input}</textarea>
+                </div>
+                <div class="col-md-6">
+                  <h3>Output</h3>
+                  <textarea rows="25" wrap="soft" autofocus="true" onfocus="this.select()" style="width: 110%;">{output}</textarea>
+                </div>
+            </div>
             <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
             <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
             <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
@@ -104,10 +114,6 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
             </div>
             <input type="submit" class="btn btn-primary blue"/>
           </form>
-          <h3>Output</h3>
-          <div style="padding-bottom: 6px;">
-            <textarea rows="25" wrap="soft" autofocus="true" onfocus="this.select()" class="form-control">{output}</textarea>
-          </div>
           <!-- image file section !-->
           <div class="panel-group">
             <div class="panel panel-default">
