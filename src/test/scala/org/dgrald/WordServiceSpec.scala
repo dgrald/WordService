@@ -20,5 +20,15 @@ class WordServiceSpec extends MutableScalatraSpec {
         extractor.getText.trim must_== fileContents
       }
     }
+
+    "maintain line breaks" in {
+      val input = "* Excessive calcification or thickening of mitral valve annulus, severe mitral stenosis, fused commissures, valvular vegetation or mass\n* LVEDD >7cm\n* LVOT obstruction\n* Severe right ventricular dysfunction\n* Stroke within 90 days; transischemic attack or myocardial infarction within 30 days of the index procedure"
+      post("/wordfile", ("worddoccontents", input)) {
+        status must_== 200
+        val doc = new XWPFDocument(new ByteArrayInputStream(bodyBytes))
+        val extractor = new XWPFWordExtractor(doc)
+        extractor.getText.trim must_== input
+      }
+    }
   }
 }

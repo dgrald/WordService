@@ -13,9 +13,12 @@ object WordFileWriter {
   def writeFile(input: String): File = {
 
     val doc = new XWPFDocument()
-    val paragraph = doc.createParagraph()
-    val run = paragraph.createRun()
-    run.setText(input)
+
+    input.split("\n").foreach(newLine => {
+      val paragraph = doc.createParagraph()
+      val run = paragraph.createRun()
+      run.setText(newLine)
+    })
 
     val filePath = s"target/${UUID.randomUUID()}.docx"
     val outputStream = new FileOutputStream(filePath)
