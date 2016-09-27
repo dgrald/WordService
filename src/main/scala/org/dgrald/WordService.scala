@@ -2,9 +2,15 @@ package org.dgrald
 
 import org.dgrald.file.writers.WordFileWriter
 import org.scalatra._
+import org.scalatra.json._
 import org.scalatra.servlet.FileUploadSupport
 
-class WordService extends WordServiceStack with FileUploadSupport with FlashMapSupport {
+import org.json4s._
+import org.json4s.JsonDSL._
+
+class WordService extends WordServiceStack with FileUploadSupport with FlashMapSupport with JacksonJsonSupport {
+
+  implicit val jsonFormats = DefaultFormats
 
   val title = "Text Correction Tool"
 
@@ -27,12 +33,23 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
     val contentExtractor = ContentExtractor()
     val requestParams = RequestParams(params, fileParams)
     val content = contentExtractor.getContent(requestParams)
+    val getJson = requestParams.getParam("returnjson", "false") == "true"
+
     content match {
-      case (in: String, out: String) => getMainPage(in, out)
+      case (in: String, out: String) =>
+        if(getJson) {
+          getResponseJson(in, out)
+        } else {
+          getMainPage(in, out)
+        }
     }
   }
 
-  def getMainPage(input: String = "", output: String = "") = {
+  private def getResponseJson(input: String, output: String) = {
+    ("input" -> input) ~ ("output" -> output)
+  }
+
+  private def getMainPage(input: String = "", output: String = "") = {
     val removeNewLinesMessage = "Remove line breaks in source"
     val newLinesMessage = "Put each sentence on its own line"
     val replaceAllButFirstMessage = "Replace all but first instance"
