@@ -103,9 +103,9 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
                   <textarea id="outputtextarea" rows="25" wrap="soft" autofocus="true" onfocus="selectCorrectTextArea()" style="width: 110%;">{output}</textarea>
                 </div>
             </div>
-            <input type="checkbox" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
-            <input type="checkbox" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
-            <input type="checkbox" name="asterisks"/>{asterisksMessage}<br/>
+            <input type="checkbox" id="removenewlinesid" name="removenewlines" checked="true"/>{removeNewLinesMessage}<br/>
+            <input type="checkbox" id="linebreaksid" name="linebreaks" checked="true"/>{newLinesMessage}<br/>
+            <input type="checkbox" id="asterisksid" name="asterisks"/>{asterisksMessage}<br/>
             <div class="panel-group" style="margin-bottom: 6px;">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -158,10 +158,11 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
               </div>
               <div id="collapse3" class="panel-collapse collapse">
                 <div class="panel-body">
-                  <form method="post" enctype="multipart/form-data">
+                  <form method="post" enctype="multipart/form-data" onsubmit="onImageSubmit()">
                     <input type="file" name="imagefile" />
-                    <input type="hidden" name="removenewlines" value="on"/>
-                    <input type="hidden" name="linebreaks" value="on"/>
+                    <input type="hidden" id="removenewlinesimage" name="removenewlines"/>
+                    <input type="hidden" id="linebreaksimage" name="linebreaks"/>
+                    <input type="hidden" id="asterisksimage" name="asterisks"/>
                     <div style="padding-top: 4px;">
                       <input type="submit" class="btn btn-primary blue"/>
                     </div>
@@ -181,10 +182,11 @@ class WordService extends WordServiceStack with FileUploadSupport with FlashMapS
               </div>
               <div id="collapse2" class="panel-collapse collapse">
                 <div class="panel-body">
-                  <form method="post" enctype="multipart/form-data">
+                  <form method="post" enctype="multipart/form-data" onsubmit="onPdfSubmit()">
                     <input type="file" name="pdffile" />
-                    <input type="hidden" name="removenewlines" value="on"/>
-                    <input type="hidden" name="linebreaks" value="on"/>
+                    <input type="hidden" id="removenewlinespdf" name="removenewlines"/>
+                    <input type="hidden" id="linebreakspdf" name="linebreaks"/>
+                    <input type="hidden" id="asteriskspdf" name="asterisks"/>
                     <div style="padding-top: 4px;">
                       <input type="submit" class="btn btn-primary blue"/>
                     </div>
