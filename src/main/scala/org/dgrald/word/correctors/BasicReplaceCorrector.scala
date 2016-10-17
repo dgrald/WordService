@@ -70,7 +70,13 @@ object BasicReplaceCorrector extends Corrector {
       "premedicated" -> "pre-medicated",
       "preimplantation" -> "pre-implantation",
       "preoperative" -> "pre-operative",
-      "preformed" -> "pre-formed"
+      "preformed" -> "pre-formed",
+      "coronary artery bypass (graft|grafting)" -> "CABG",
+      "NT[-\\s]?pro[-\\s]?BNP" -> "NT-proBNP"
+    )
+
+    val doNotChangeCase = Map(
+      "mm Hg" -> "mmHg"
     )
 
     val caseIrrelevantToReplace = Map(
@@ -95,7 +101,16 @@ object BasicReplaceCorrector extends Corrector {
       }
     }).head
 
-    caseIrrelevantToReplace.toList.foldRight(List(input2))((pair, outputs) => pair match {
+    val input3 = doNotChangeCase.toList.foldRight(List(input2))((pair, outputs) => pair match {
+      case (toReplace: String, replacement: String) => {
+        val firstChar = toReplace.head
+        val regex = s"\\b[${firstChar.toUpper}$firstChar]${toReplace.tail}\\b".r
+        val output = regex.replaceAllIn(outputs.head, replacement)
+        output +: outputs
+      }
+    }).head
+
+    caseIrrelevantToReplace.toList.foldRight(List(input3))((pair, outputs) => pair match {
       case (toReplace: String, replacement: String) => {
         val regex = s"\\b$toReplace\\b".r
         regex.replaceAllIn(outputs.head, replacement) +: outputs

@@ -22,4 +22,15 @@ class ComparisonSymbolCorrectorSpec extends Specification {
     }
   }
 
+  "Should replace 'Something>2' with 'Something >2'" in {
+    val input = "Something>2"
+
+    ComparisonSymbolCorrector.correct(input) must_== s"Something >2"
+  }
+
+  "Should correct '> 2' with '>2'" in {
+    val input = "> 2"
+
+    ComparisonSymbolCorrector.correct(input) must_== ">2"
+  }
 }

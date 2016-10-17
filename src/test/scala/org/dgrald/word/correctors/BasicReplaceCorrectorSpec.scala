@@ -72,7 +72,18 @@ class BasicReplaceCorrectorSpec extends Specification {
     "premedicated" -> "pre-medicated",
     "preimplantation" -> "pre-implantation",
     "preoperative" -> "pre-operative",
-    "preformed" -> "pre-formed"
+    "preformed" -> "pre-formed",
+    "coronary artery bypass graft" -> "CABG",
+    "coronary artery bypass grafting" -> "CABG",
+    "NT-pro BNP" -> "NT-proBNP",
+    "NTproBNP" -> "NT-proBNP",
+    "NTpro-BNP" -> "NT-proBNP",
+    "NT proBNP" -> "NT-proBNP",
+    "NT pro-BNP" -> "NT-proBNP"
+  )
+
+  val doNotChangeReplacementCase = Map(
+    "mm Hg" -> "mmHg"
   )
 
   val caseIrrelevantToReplace = Map(
@@ -106,6 +117,33 @@ class BasicReplaceCorrectorSpec extends Specification {
           val output = BasicReplaceCorrector.correct(input)
 
           output must_== s"Something with ${StringUtils.capitalize(replacement)} in it."
+        }
+    }
+  }
+
+  "Should replace" >> {
+    Fragment.foreach(doNotChangeReplacementCase.toList) {
+      case (toReplace: String, replacement: String) => {
+        s"'${StringUtils.capitalize(toReplace)}' with '$replacement'" ! {
+          val input = s"Something with ${StringUtils.capitalize(toReplace)} in it."
+
+          val output = BasicReplaceCorrector.correct(input)
+
+          output must_== s"Something with $replacement in it."
+        }
+      }
+    }
+  }
+
+  "Should replace" >> {
+    Fragment.foreach(doNotChangeReplacementCase.toList) {
+      case (toReplace: String, replacement: String) =>
+        s"'$toReplace' with '$replacement'" ! {
+          val input = s"Something with $toReplace in it."
+
+          val output = BasicReplaceCorrector.correct(input)
+
+          output must_== s"Something with $replacement in it."
         }
     }
   }

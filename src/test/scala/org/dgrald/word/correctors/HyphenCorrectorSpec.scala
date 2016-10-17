@@ -47,6 +47,15 @@ class HyphenCorrectorSpec extends Specification {
     }
   }
 
+  "Should not change" >> {
+    Fragment.foreach(List("posterior", "posteriorly")) { word =>
+      s"$word" ! {
+        val input = s"Something $word"
+        HyphenCorrector.correct(input) must_== input
+      }
+    }
+  }
+
   "Should replace all prefixes with hyphenated prefix" in {
     val input = (for {
       prefix <- prefixes
