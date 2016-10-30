@@ -13,7 +13,7 @@ object ImageTextParser {
 
   def parseText(fileByteArray: Array[Byte]): String = {
     val username = "aglen"
-    val licenseCode = "8B844814-338E-46DD-A79F-2C1363D93EA0"
+    val licenseCode = "3FF24B1F-CDE7-4BEB-91CA-D63B99720711"
 
     val ocrURL = "http://www.ocrwebservice.com/restservices/processDocument?gettext=true"
 
