@@ -20,4 +20,10 @@ object Constants {
     ("November", "Nov."),
     ("December", "Dec.")
   )
+
+  def comparisonSymbolRegex: String = {
+    val lessThanOrEqualToUnicode = "\u2264"
+    val greaterThanOrEqualToUnicode = "\u2265"
+    s"[=><{$lessThanOrEqualToUnicode}{$greaterThanOrEqualToUnicode}][=]{0,1}"
+  }
 }
