@@ -79,7 +79,13 @@ class BasicReplaceCorrectorSpec extends Specification {
     "NTproBNP" -> "NT-proBNP",
     "NTpro-BNP" -> "NT-proBNP",
     "NT proBNP" -> "NT-proBNP",
-    "NT pro-BNP" -> "NT-proBNP"
+    "NT pro-BNP" -> "NT-proBNP",
+    "short term" -> "short-term",
+    "shortterm" -> "short-term",
+    "mid term" -> "mid-term",
+    "midterm" -> "mid-term",
+    "long term" -> "long-term",
+    "longterm" -> "long-term"
   )
 
   val doNotChangeReplacementCase = Map(

@@ -72,7 +72,10 @@ object BasicReplaceCorrector extends Corrector {
       "preoperative" -> "pre-operative",
       "preformed" -> "pre-formed",
       "coronary artery bypass (graft|grafting)" -> "CABG",
-      "NT[-\\s]?pro[-\\s]?BNP" -> "NT-proBNP"
+      "NT[-\\s]?pro[-\\s]?BNP" -> "NT-proBNP",
+      "short[\\s]?term" -> "short-term",
+      "mid[\\s]?term" -> "mid-term",
+      "long[\\s]?term" -> "long-term"
     )
 
     val doNotChangeCase = Map(
