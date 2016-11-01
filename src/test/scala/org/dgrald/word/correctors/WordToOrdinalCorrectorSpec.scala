@@ -65,4 +65,30 @@ class WordToOrdinalCorrectorSpec extends Specification {
       }
     }
   }
+
+  val exceptions = List("first-in-man", "first-in-human")
+
+  "Should not correct" >> {
+    Fragment.foreach(exceptions ++ exceptions.map(e => StringUtils.capitalize(e))) { testCase =>
+      s"'$testCase'" ! {
+        val input = s"Something with $testCase in it."
+
+        val output = WordToOrdinalCorrector.correct(input)
+
+        output must_== input
+      }
+    }
+  }
+
+  "Should not correct" >> {
+    Fragment.foreach(exceptions) { testCase =>
+      s"phrase ending in '$testCase'" ! {
+        val input = s"Something ending in $testCase"
+
+        val output = WordToOrdinalCorrector.correct(input)
+
+        output must_== input
+      }
+    }
+  }
 }

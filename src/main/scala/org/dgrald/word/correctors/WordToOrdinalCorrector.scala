@@ -26,12 +26,19 @@ object WordToOrdinalCorrector extends Corrector {
       input.length > regexMatch.end && input.charAt(regexMatch.end).isSpaceChar && input.charAt(regexMatch.end + 1).isDigit
     }
 
+    def startsWithInHumanOrInMan(nextInput: String, regexMatch: Match): Boolean = {
+      val restOfString = nextInput.substring(regexMatch.end, nextInput.length)
+      restOfString.startsWith("-in-human") || restOfString.startsWith("-in-man")
+    }
+
     wordToOrdinalMap.foldRight(List(input))((ordinalPair, outputs) => ordinalPair match {
       case (key: String, value: String) => {
         val ordinalWordRegex = s"\\b($key|${StringUtils.capitalize(key)})\\b"
         val regex = s"$ordinalWordRegex".r
         regex.replaceAllIn(outputs.head, regexMatch => {
-            if(isFollowedBySpaceAndThenNumber(regexMatch)) {
+            if(startsWithInHumanOrInMan(outputs.head, regexMatch)) {
+              regexMatch.toString()
+            } else if(isFollowedBySpaceAndThenNumber(regexMatch)) {
               regexMatch.toString()
             } else {
               wordToOrdinalMap(regexMatch.toString().toLowerCase)
