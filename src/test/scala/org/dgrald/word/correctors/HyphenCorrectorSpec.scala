@@ -48,7 +48,7 @@ class HyphenCorrectorSpec extends Specification {
   }
 
   "Should not change" >> {
-    Fragment.foreach(List("posterior", "posteriorly")) { word =>
+    Fragment.foreach(List("posterior", "posteriorly", "anticipate", "anticipated", "anticipates")) { word =>
       s"$word" ! {
         val input = s"Something $word"
         HyphenCorrector.correct(input) must_== input
