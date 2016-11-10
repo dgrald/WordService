@@ -17,7 +17,7 @@ object ImageTextParser {
 
     val ocrURL = "http://www.ocrwebservice.com/restservices/processDocument?gettext=true"
 
-    val timeout = 30000
+    val timeout = 90000
 
     val body = Http(ocrURL)
       .auth(username, licenseCode)
