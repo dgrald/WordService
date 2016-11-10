@@ -8,6 +8,7 @@ object JettyLauncher {
     val port = if(System.getProperty("http.port") != null) System.getProperty("http.port").toInt else 8080
 
     val server = new Server(port)
+    server.setAttribute("http.timeout", 90000)
     val context = new WebAppContext()
     context.setContextPath("/")
     context.setResourceBase("src/main/webapp")
