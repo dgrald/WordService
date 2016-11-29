@@ -80,7 +80,8 @@ object BasicReplaceCorrector extends Corrector {
 
     val doNotChangeCase = Map(
       "mm Hg" -> "mmHg",
-      "US" -> "U.S."
+      "US" -> "U.S.",
+      "United States" -> "U.S."
     )
 
     val caseIrrelevantToReplace = Map(
