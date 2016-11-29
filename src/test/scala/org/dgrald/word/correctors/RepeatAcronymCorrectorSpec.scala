@@ -23,4 +23,20 @@ class RepeatAcronymCorrectorSpec extends Specification {
     output must_== input
   }
 
+  "Should handle input with '$'" in {
+    val input = "Something with $7,234 (B) in it."
+
+    val output = RepeatAcryonymCorrector.correct(input)
+
+    output must_== input
+  }
+
+  "Should handle new lines correctly" in {
+    val input = "Something with AB (AB)\nAnd another Thing\nThing 1"
+
+    val output = RepeatAcryonymCorrector.correct(input)
+
+    output must_== "Something with AB\nAnd another Thing\nThing 1"
+  }
+
 }
