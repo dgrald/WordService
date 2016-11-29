@@ -89,7 +89,8 @@ class BasicReplaceCorrectorSpec extends Specification {
   )
 
   val doNotChangeReplacementCase = Map(
-    "mm Hg" -> "mmHg"
+    "mm Hg" -> "mmHg",
+    "US" -> "U.S."
   )
 
   val caseIrrelevantToReplace = Map(
