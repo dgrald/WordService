@@ -28,7 +28,37 @@ class ComparisonSymbolCorrectorSpec extends Specification {
     ComparisonSymbolCorrector.correct(input) must_== s"Something >2"
   }
 
-  "Should correct '> 2' with '>2'" in {
+  "Should not change letter followed by comparison symbol followed by number" in {
+    val testCases = List("n<2", "z>2.54", "g=56")
+    Fragment.foreach(testCases) { testCase =>
+      val input = s"Something with $testCase in it."
+      s"'$input'" ! {
+        ComparisonSymbolCorrector.correct(input) must_== input
+      }
+    }
+  }
+
+  "Should not change letter followed by comparison symbol followed by number" in {
+    val testCases = List("n<2", "z>2.54", "g=56")
+    Fragment.foreach(testCases) { testCase =>
+      val input = s"$testCase"
+      s"'$input'" ! {
+        ComparisonSymbolCorrector.correct(input) must_== input
+      }
+    }
+  }
+
+  "Should not change comparison symbol followed by number" in {
+    val testCases = List("<2", ">2.54", "=56")
+    Fragment.foreach(testCases) { testCase =>
+      val input = s"$testCase"
+      s"'$input'" ! {
+        ComparisonSymbolCorrector.correct(input) must_== input
+      }
+    }
+  }
+
+  "Should correct '> 2' to '>2'" in {
     val input = "> 2"
 
     ComparisonSymbolCorrector.correct(input) must_== ">2"
