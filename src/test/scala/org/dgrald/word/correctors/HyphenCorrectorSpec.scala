@@ -49,7 +49,7 @@ class HyphenCorrectorSpec extends Specification {
   }
 
   "Should not change" >> {
-    val exceptions = List("posterior", "posteriorly", "anticipate", "anticipated", "anticipates")
+    val exceptions = List("posterior", "posteriorly", "posterolateral", "anticipate", "anticipated", "anticipates")
     val exceptionsCapitalized = exceptions.map(e => StringUtils.capitalize(e))
     Fragment.foreach(exceptions ++ exceptionsCapitalized) { word =>
       s"$word" ! {

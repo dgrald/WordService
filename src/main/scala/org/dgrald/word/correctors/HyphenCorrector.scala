@@ -9,7 +9,7 @@ object HyphenCorrector extends Corrector {
   override def correct(input: String, otherInstructions: List[Any] = List()): String = {
     val prefixesToHyphenate = List("post", "intra", "anti")
 
-    val exceptions = List("posterior[a-z]*", "anticipat[a-z]*\\b")
+    val exceptions = List("posterior[a-z]*", "posterolateral[a-z]*", "anticipat[a-z]*\\b")
 
     prefixesToHyphenate.foldRight(List(input))((nextPrefix, toReturn) => {
       val prefixRegex = s"[${nextPrefix.head}${nextPrefix.head.toUpper}]${nextPrefix.tail}"
