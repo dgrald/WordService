@@ -16,7 +16,7 @@ object HyphenCorrector extends Corrector {
       val nextRegex = s"\\b$prefixRegex[a-zA-Z]+".r
       val nextOutput = nextRegex.replaceAllIn(toReturn.head, (someMatch) => {
         val prefix = if(StringUtils.isCapitalized(someMatch.toString)) StringUtils.capitalize(nextPrefix) else nextPrefix
-        if(exceptions.exists(ex => someMatch.toString().matches(ex))) {
+        if(exceptions.exists(ex => someMatch.toString().toLowerCase.matches(ex))) {
           someMatch.toString()
         } else {
           s"$prefix-${someMatch.toString.split(prefixRegex).last}"

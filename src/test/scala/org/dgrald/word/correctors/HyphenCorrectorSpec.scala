@@ -1,5 +1,6 @@
 package org.dgrald.word.correctors
 
+import org.dgrald.StringUtils
 import org.specs2.mutable.Specification
 import org.specs2.specification.core.Fragment
 
@@ -48,7 +49,9 @@ class HyphenCorrectorSpec extends Specification {
   }
 
   "Should not change" >> {
-    Fragment.foreach(List("posterior", "posteriorly", "anticipate", "anticipated", "anticipates")) { word =>
+    val exceptions = List("posterior", "posteriorly", "anticipate", "anticipated", "anticipates")
+    val exceptionsCapitalized = exceptions.map(e => StringUtils.capitalize(e))
+    Fragment.foreach(exceptions ++ exceptionsCapitalized) { word =>
       s"$word" ! {
         val input = s"Something $word"
         HyphenCorrector.correct(input) must_== input
