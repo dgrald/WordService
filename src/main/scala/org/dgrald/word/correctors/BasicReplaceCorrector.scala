@@ -85,10 +85,15 @@ object BasicReplaceCorrector extends Corrector {
     )
 
     val caseIrrelevantToReplace = Map(
-      "FU" -> "follow-up",
       "x-ray" -> "X-ray",
       "Kaplan Meier" -> "Kaplan-Meier",
       "New York Heart Association" -> "NYHA"
+    )
+
+    val capitalizeOnlyIfBeginningOfSentence = Map(
+      "FU" -> "follow-up",
+      "FMR" -> "functional MR",
+      "DMR" -> "degenerative MR"
     )
 
     val input2 = toReplaceMap.toList.foldRight(List(input))((pair, outputs) => pair match {
@@ -107,19 +112,29 @@ object BasicReplaceCorrector extends Corrector {
     }).head
 
     val input3 = doNotChangeCase.toList.foldRight(List(input2))((pair, outputs) => pair match {
-      case (toReplace: String, replacement: String) => {
+      case (toReplace: String, replacement: String) =>
         val firstChar = toReplace.head
         val regex = s"\\b[${firstChar.toUpper}$firstChar]${toReplace.tail}\\b".r
         val output = regex.replaceAllIn(outputs.head, replacement)
         output +: outputs
-      }
     }).head
 
-    caseIrrelevantToReplace.toList.foldRight(List(input3))((pair, outputs) => pair match {
-      case (toReplace: String, replacement: String) => {
+    val input4 = caseIrrelevantToReplace.toList.foldRight(List(input3))((pair, outputs) => pair match {
+      case (toReplace: String, replacement: String) =>
         val regex = s"\\b$toReplace\\b".r
         regex.replaceAllIn(outputs.head, replacement) +: outputs
-      }
+    }).head
+
+    capitalizeOnlyIfBeginningOfSentence.toList.foldRight(List(input4))((pair, outputs) => pair match {
+      case (toReplace: String, replacement: String) =>
+        val regex = s"\\b$toReplace\\b".r
+        regex.replaceAllIn(outputs.head, regexMatch => {
+          if(regexMatch.start > 0 && outputs.head.charAt(regexMatch.start - 1) == '\n') {
+            StringUtils.capitalize(replacement)
+          } else {
+            replacement
+          }
+        }) +: outputs
     }).head
   }
 }

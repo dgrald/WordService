@@ -95,10 +95,15 @@ class BasicReplaceCorrectorSpec extends Specification {
   )
 
   val caseIrrelevantToReplace = Map(
-    "FU" -> "follow-up",
     "x-ray" -> "X-ray",
     "Kaplan Meier" -> "Kaplan-Meier",
     "New York Heart Association" -> "NYHA"
+  )
+
+  val capitalizeOnlyIfBeginningOfSentence = Map(
+    "FU" -> "follow-up",
+    "FMR" -> "functional MR",
+    "DMR" -> "degenerative MR"
   )
 
   val capitalizedToReplace = toReplace.toList.map(member => member match { case (first: String, second: String) => (StringUtils.capitalize(first), StringUtils.capitalize(second))})
@@ -165,6 +170,33 @@ class BasicReplaceCorrectorSpec extends Specification {
           val output = BasicReplaceCorrector.correct(input)
 
           output must_== s"Something with $replacement in it."
+        }
+    }
+  }
+
+  "Should replace" >> {
+    Fragment.foreach(capitalizeOnlyIfBeginningOfSentence.toList) {
+      case (toReplace: String, replacement: String) =>
+        s"'$toReplace' with '$replacement'" ! {
+          val input = s"Something with $toReplace in it."
+
+          val output = BasicReplaceCorrector.correct(input)
+
+          output must_== s"Something with $replacement in it."
+        }
+    }
+  }
+
+  "Should replace" >> {
+    val capitalized = capitalizeOnlyIfBeginningOfSentence.toList.map(e => (StringUtils.capitalize(e._1), StringUtils.capitalize(e._2)))
+    Fragment.foreach(capitalized) {
+      case (toReplace: String, replacement: String) =>
+        s"'$toReplace' with '$replacement'" ! {
+          val input = s"Something at the start\n$toReplace in it"
+
+          val output = BasicReplaceCorrector.correct(input)
+
+          output must_== s"Something at the start\n$replacement in it"
         }
     }
   }
