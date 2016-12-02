@@ -39,7 +39,7 @@ class ComparisonSymbolCorrectorSpec extends Specification {
   }
 
   "Should not change letter followed by comparison symbol followed by number" in {
-    val testCases = List("n<2", "z>2.54", "g=56")
+    val testCases = List("n<2", "z>2.54", "(g<56)", "(n=2)")
     Fragment.foreach(testCases) { testCase =>
       val input = s"$testCase"
       s"'$input'" ! {
