@@ -75,7 +75,8 @@ object BasicReplaceCorrector extends Corrector {
       "NT[-\\s]?pro[-\\s]?BNP" -> "NT-proBNP",
       "short[\\s]?term" -> "short-term",
       "mid[\\s]?term" -> "mid-term",
-      "long[\\s]?term" -> "long-term"
+      "long[\\s]?term" -> "long-term",
+      "Sapien" -> "SAPIEN"
     )
 
     val doNotChangeCase = Map(
