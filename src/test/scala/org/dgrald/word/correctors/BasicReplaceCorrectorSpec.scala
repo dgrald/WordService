@@ -86,7 +86,8 @@ class BasicReplaceCorrectorSpec extends Specification {
     "midterm" -> "mid-term",
     "long term" -> "long-term",
     "longterm" -> "long-term",
-    "Sapien" -> "SAPIEN"
+    "Sapien" -> "SAPIEN",
+    "all cause" -> "all-cause"
   )
 
   val doNotChangeReplacementCase = Map(
